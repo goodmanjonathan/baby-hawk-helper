@@ -1,2 +1,13 @@
 # baby-hawk-helper
-# Start dev server: npm start
+
+## Install dependencies
+
+```
+npm install
+```
+
+## Start dev server
+
+```
+npm start
+```
