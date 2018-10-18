@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DrawerTest from './Components/DrawerTest';
+import MainLayout from './Components/MainLayout'
 
 ReactDOM.render(
-  <DrawerTest />,
+  <MainLayout />,
   document.getElementById('root')
 );
