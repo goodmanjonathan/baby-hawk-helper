@@ -10,18 +10,21 @@ import Typography from "@material-ui/core/Typography";
 import List from '@material-ui/core/List';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import Divider from "@material-ui/core/Divider";
 import TodayIcon from "@material-ui/icons/Today";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import MapIcon from "@material-ui/icons/Map";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import SettingsIcon from "@material-ui/icons/Settings";
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 import Dashboard from "./Dashboard";
 import Schedule from "./Schedule";
 import Calendar from "./Calendar";
 import Map from "./Map";
+import Settings from "./Settings";
 
-const pages = ["Dashboard","Schedule","Calendar","Map"];
+const pages = ["Dashboard","Schedule","Calendar","Map", "Settings"];
 
 const styles = theme => ({
 	root: {
@@ -120,6 +123,19 @@ class LeftDrawer extends Component {
 												</ListItemIcon>
 											</ListItem>
 										</Link>
+										<Divider />
+										<div className={classes.toolbar} />
+										<Link to="/settings">
+											<ListItem
+													button
+													selected={this.state.selectedIndex === 4}
+													onClick={event => this.handleListItemClick(event,4)}
+											>
+												<ListItemIcon>
+													<SettingsIcon />
+												</ListItemIcon>
+											</ListItem>
+										</Link>
 									</List>
 								</Drawer>
 								</Grid>
@@ -130,6 +146,7 @@ class LeftDrawer extends Component {
 									<Route exact path="/schedule" component = {Schedule} />
 									<Route exact path="/calendar" component = {Calendar} />
 									<Route exact path="/map" component = {Map} />
+									<Route exact path="/settings" component = {Settings} />
 								</div>
 							</Grid>
 							</Grid>
