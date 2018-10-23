@@ -9,7 +9,6 @@ const styles = theme => ({
 	paper: {
 		flexGrow: 1,
 		padding: theme.spacing.unit * 3,
-		height: "90vh",
 	}
 
 });
@@ -18,11 +17,11 @@ const styles = theme => ({
 function Dashboard(props) {
 	const { classes } = props;
 	return (
-		<Paper className={classes.paper} square>
+		<div className={classes.paper} >
 			<Typography>
 				Dashboard
 			</Typography>
-		</Paper>
+		</div>
 	);
 }
 

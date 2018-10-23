@@ -7,6 +7,8 @@ import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import MenuList from "@material-ui/core/MenuList";
+import MenuItem from "@material-ui/core/MenuItem";
 import List from '@material-ui/core/List';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -31,17 +33,33 @@ const styles = theme => ({
 		flexGrow: 1,
 	},
 	drawer:{
-		width: 70,
+		width: 60,
 	},
 	drawerPaper: {
-		width: 70,
+		width: 60,
+		color: theme.palette.secondary,
 	},
 	toolbar: theme.mixins.toolbar,
 	appBar:{
 		zIndex: theme.zIndex.drawer + 1,
 	},
 	appBarText: {
-	}
+	},
+	item: {
+		color: theme.palette.primary,
+	},
+	menuItem: {
+		'&:focus': {
+			backgroundColor: theme.palette.secondary.main,
+			'& $primary, & $icon': {
+				color: theme.palette.common.white,
+			},
+		},
+	},
+	primary: {},
+	icon: {
+		color: theme.palette.secondary.main,
+	},
 });
 
 
@@ -77,66 +95,61 @@ class LeftDrawer extends Component {
 									className = {classes.drawer}
 									classes={{paper: classes.drawerPaper,}}
 								>
-									<List>
+									<MenuList>
 										<div className = {classes.toolbar} />
 										<Link to="/">
-											<ListItem
-													button
-													selected={this.state.selectedIndex === 0}
+											<MenuItem
+													className = {classes.menuItem}
 													onClick={event => this.handleListItemClick(event,0)}
 											>
-												<ListItemIcon>
+												<ListItemIcon className={classes.icon}>
 													<DashboardIcon />
 												</ListItemIcon>
-											</ListItem>
+											</MenuItem>
 										</Link>
 										<Link to="/schedule">
-											<ListItem
-													button
-													selected={this.state.selectedIndex === 1}
+											<MenuItem
+													className= {classes.menuItem}
 													onClick={event => this.handleListItemClick(event,1)}
 											>
-												<ListItemIcon>
+												<ListItemIcon className = {classes.icon}>
 													<ScheduleIcon />
 												</ListItemIcon>
-											</ListItem>
+											</MenuItem>
 										</Link>
 										<Link to="/calendar">
-											<ListItem
-													button
-													selected={this.state.selectedIndex === 2}
+											<MenuItem
+													className={classes.menuItem}
 													onClick={event => this.handleListItemClick(event,2)}
 											>
-												<ListItemIcon>
+												<ListItemIcon className={classes.icon}>
 													<TodayIcon />
 												</ListItemIcon>
-											</ListItem>
+											</MenuItem>
 										</Link>
 										<Link to="/map">
-											<ListItem
-													button
-													selected={this.state.selectedIndex === 3}
+											<MenuItem
+													className={classes.menuItem}
 													onClick={event => this.handleListItemClick(event,3)}
 											>
-												<ListItemIcon>
+												<ListItemIcon className={classes.icon}>
 													<MapIcon />
 												</ListItemIcon>
-											</ListItem>
+											</MenuItem>
 										</Link>
 										<Divider />
 										<div className={classes.toolbar} />
 										<Link to="/settings">
-											<ListItem
-													button
-													selected={this.state.selectedIndex === 4}
+											<MenuItem
+													className={classes.menuItem}
 													onClick={event => this.handleListItemClick(event,4)}
 											>
-												<ListItemIcon>
+												<ListItemIcon className={classes.icon}>
 													<SettingsIcon />
 												</ListItemIcon>
-											</ListItem>
+											</MenuItem>
 										</Link>
-									</List>
+									</MenuList>
 								</Drawer>
 								</Grid>
 								<Grid item xs>
