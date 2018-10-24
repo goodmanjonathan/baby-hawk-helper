@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DrawerTest from './Components/DrawerTest';
+import App from './Layouts/App'
 
 ReactDOM.render(
-  <DrawerTest />,
-  document.getElementById('root')
+	<App />,
+	document.getElementById('root')
 );
