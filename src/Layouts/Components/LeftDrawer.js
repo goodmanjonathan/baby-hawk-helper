@@ -13,12 +13,15 @@ import List from '@material-ui/core/List';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
 import TodayIcon from "@material-ui/icons/Today";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import MapIcon from "@material-ui/icons/Map";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import SettingsIcon from "@material-ui/icons/Settings";
+import MenuIcon from "@material-ui/icons/Menu";
 import { BrowserRouter, Route, Link } from 'react-router-dom';
+import classNames from "classnames";
 
 import Dashboard from "./Dashboard";
 import Schedule from "./Schedule";
@@ -27,6 +30,7 @@ import Map from "./Map";
 import Settings from "./Settings";
 
 const pages = ["Dashboard","Schedule","Calendar","Map", "Settings"];
+const drawerWidth = 60;
 
 const styles = theme => ({
 	root: {
@@ -60,9 +64,35 @@ const styles = theme => ({
 	icon: {
 		color: theme.palette.secondary.main,
 	},
-	mainContent:{
-		paddingLeft: 60,
-	}
+	content: {
+		flexGrow: 1,
+		padding: theme.spacing.unit,
+		transition: theme.transitions.create('margin', {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+		marginLeft: 0,
+		height: '90vh',
+	},
+	contentShift: {
+		transition: theme.transitions.create('margin', {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+		marginLeft: drawerWidth,
+		height: '90vh',
+	},
+	appBar: {
+		zIndex: theme.zIndex.drawer + 1,
+		transition: theme.transitions.create(['margin', 'width'], {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+	},
+	menuButton: {
+		marginLeft: -10,
+		marginRight: 10,
+	},
 });
 
 
@@ -70,11 +100,16 @@ const styles = theme => ({
 class LeftDrawer extends Component {
 		state = {
 				selectedIndex: 0,
+				open: true,
 		};
 
 		handleListItemClick = (event, index) => {
 				this.setState({selectedIndex: index});
 		};
+
+		handleDrawerToggle = () => {
+			this.setState({open: !this.state.open})
+		}
 
 		render() {
 				const { classes } = this.props;
@@ -83,8 +118,16 @@ class LeftDrawer extends Component {
 					<BrowserRouter>
 						<div className={classes.root}>
 							<CssBaseline />
-							<AppBar position="fixed" className={classes.appBar}>
+							<AppBar position="fixed" className= {classes.appBar}>
 								<Toolbar>
+									<IconButton
+										color="inherit"
+										aria-label="Open drawer"
+										onClick={this.handleDrawerToggle}
+										className={classNames(classes.menuButton)}
+									>
+										<MenuIcon />
+									</IconButton>
 									<Typography className={classes.appBarText}
 										variant='h6' color='inherit'
 									>
@@ -92,9 +135,10 @@ class LeftDrawer extends Component {
 									</Typography>
 								</Toolbar>
 							</AppBar>
-							<Drawer variant="permanent"
+							<Drawer variant="persistent"
 								className = {classes.drawer}
 								classes={{paper: classes.drawerPaper,}}
+								open= {this.state.open}
 							>
 								<MenuList>
 									<div className = {classes.toolbar} />
@@ -153,8 +197,10 @@ class LeftDrawer extends Component {
 								</MenuList>
 							</Drawer>
 
-							<div className={classes.toolbar} />
-							<div className = {classes.mainContent}>
+							<div className = {classes.toolbar} />
+							<div className={classNames(classes.content, {
+								[classes.contentShift]: this.state.open,})}
+							>
 								<Route exact path="/" component = {Dashboard} />
 								<Route exact path="/schedule" component = {Schedule} />
 								<Route exact path="/calendar" component = {Calendar} />
