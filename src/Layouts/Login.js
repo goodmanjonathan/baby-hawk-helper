@@ -3,9 +3,9 @@ import React from 'react';
 const libaxios = require("axios");
 const axios = libaxios.create({
     baseURL: "http://dcm.uhcl.edu/c438818fa01g2",
-    timeout: 1000,
+    timeout: 10000,
     headers: {
-        "X-Access-Control-Allow-Origin": "Access-Control-Allow-Origin",
+        "X-Access-Control-Allow-Origin": "XMLHttpRequest",
     },
 });
 
@@ -27,12 +27,12 @@ export default class Login extends React.Component {
             let uid = document.getElementById("uid").value;
             let pw = document.getElementById("pw").value;
 
-            axios.get("/api/student", {
+            axios.get("/api/student/" + uid /*{
                     params: {
                         Id: uid,
                         Passwd: pw,
                     }
-                })
+                }*/)
                 .then((response) => {
                     console.log(response);
 
@@ -61,7 +61,9 @@ export default class Login extends React.Component {
                 <br/>
                 <br/>
                 <input id="pw" type="text" defaultValue="password"></input>
-                <button id="login" onClick={this.getStudent}></button>
+                <br/>
+                <br/>
+                <button id="login" onClick={this.getStudent}>Login</button>
 
                 <p id="id">{this.state.id}</p>
                 <p id="fname">{this.state.fname}</p>
