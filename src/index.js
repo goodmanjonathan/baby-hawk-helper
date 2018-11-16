@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './Layouts/App'
+import App from './Layouts/App';
+import Login from './Layouts/Login';
 
 ReactDOM.render(
-	<App />,
+	<Login />,
 	document.getElementById('root')
 );
