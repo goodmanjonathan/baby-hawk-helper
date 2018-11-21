@@ -60,6 +60,9 @@ const styles = theme => ({
 	icon: {
 		color: theme.palette.secondary.main,
 	},
+	mainContent:{
+		paddingLeft: 60,
+	}
 });
 
 
@@ -89,80 +92,75 @@ class LeftDrawer extends Component {
 									</Typography>
 								</Toolbar>
 							</AppBar>
-							<Grid container spacing={0}>
-								<Grid item xs={.5}>
-								<Drawer variant="permanent"
-									className = {classes.drawer}
-									classes={{paper: classes.drawerPaper,}}
-								>
-									<MenuList>
-										<div className = {classes.toolbar} />
-										<Link to="/">
-											<MenuItem
-													className = {classes.menuItem}
-													onClick={event => this.handleListItemClick(event,0)}
-											>
-												<ListItemIcon className={classes.icon}>
-													<DashboardIcon />
-												</ListItemIcon>
-											</MenuItem>
-										</Link>
-										<Link to="/schedule">
-											<MenuItem
-													className= {classes.menuItem}
-													onClick={event => this.handleListItemClick(event,1)}
-											>
-												<ListItemIcon className = {classes.icon}>
-													<ScheduleIcon />
-												</ListItemIcon>
-											</MenuItem>
-										</Link>
-										<Link to="/calendar">
-											<MenuItem
-													className={classes.menuItem}
-													onClick={event => this.handleListItemClick(event,2)}
-											>
-												<ListItemIcon className={classes.icon}>
-													<TodayIcon />
-												</ListItemIcon>
-											</MenuItem>
-										</Link>
-										<Link to="/map">
-											<MenuItem
-													className={classes.menuItem}
-													onClick={event => this.handleListItemClick(event,3)}
-											>
-												<ListItemIcon className={classes.icon}>
-													<MapIcon />
-												</ListItemIcon>
-											</MenuItem>
-										</Link>
-										<Divider />
-										<div className={classes.toolbar} />
-										<Link to="/settings">
-											<MenuItem
-													className={classes.menuItem}
-													onClick={event => this.handleListItemClick(event,4)}
-											>
-												<ListItemIcon className={classes.icon}>
-													<SettingsIcon />
-												</ListItemIcon>
-											</MenuItem>
-										</Link>
-									</MenuList>
-								</Drawer>
-								</Grid>
-								<Grid item xs>
-								<div className={classes.toolbar} />
-								<div>
-									<Route exact path="/" component = {Dashboard} />
-									<Route exact path="/schedule" component = {Schedule} />
-									<Route exact path="/calendar" component = {Calendar} />
-									<Route exact path="/map" component = {Map} />
-									<Route exact path="/settings" component = {Settings} />
-								</div>
-							</Grid>
-							</Grid>
+							<Drawer variant="permanent"
+								className = {classes.drawer}
+								classes={{paper: classes.drawerPaper,}}
+							>
+								<MenuList>
+									<div className = {classes.toolbar} />
+									<Link to="/">
+										<MenuItem
+												className = {classes.menuItem}
+												onClick={event => this.handleListItemClick(event,0)}
+										>
+											<ListItemIcon className={classes.icon}>
+												<DashboardIcon />
+											</ListItemIcon>
+										</MenuItem>
+									</Link>
+									<Link to="/schedule">
+										<MenuItem
+												className= {classes.menuItem}
+												onClick={event => this.handleListItemClick(event,1)}
+										>
+											<ListItemIcon className = {classes.icon}>
+												<ScheduleIcon />
+											</ListItemIcon>
+										</MenuItem>
+									</Link>
+									<Link to="/calendar">
+										<MenuItem
+												className={classes.menuItem}
+												onClick={event => this.handleListItemClick(event,2)}
+										>
+											<ListItemIcon className={classes.icon}>
+												<TodayIcon />
+											</ListItemIcon>
+										</MenuItem>
+									</Link>
+									<Link to="/map">
+										<MenuItem
+												className={classes.menuItem}
+												onClick={event => this.handleListItemClick(event,3)}
+										>
+											<ListItemIcon className={classes.icon}>
+												<MapIcon />
+											</ListItemIcon>
+										</MenuItem>
+									</Link>
+									<Divider />
+									<div className={classes.toolbar} />
+									<Link to="/settings">
+										<MenuItem
+												className={classes.menuItem}
+												onClick={event => this.handleListItemClick(event,4)}
+										>
+											<ListItemIcon className={classes.icon}>
+												<SettingsIcon />
+											</ListItemIcon>
+										</MenuItem>
+									</Link>
+								</MenuList>
+							</Drawer>
+
+							<div className={classes.toolbar} />
+							<div className = {classes.mainContent}>
+								<Route exact path="/" component = {Dashboard} />
+								<Route exact path="/schedule" component = {Schedule} />
+								<Route exact path="/calendar" component = {Calendar} />
+								<Route exact path="/map" component = {Map} />
+								<Route exact path="/settings" component = {Settings} />
+							</div>
 						</div>
 					</BrowserRouter>
 				);

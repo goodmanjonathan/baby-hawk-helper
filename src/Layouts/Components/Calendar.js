@@ -1,33 +1,40 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import React, { Component } from "react";
+import Calendar from "react-big-calendar";
+import moment from "moment";
+
+//import "./App.css";
+import style from 'react-big-calendar/lib/css/react-big-calendar.css';
+//import logo from "./logo.svg";
+
+const localizer = Calendar.momentLocalizer(moment);
 
 
-const styles = theme => ({
-	paper: {
-		flexGrow: 1,
-		padding: theme.spacing.unit * 3,
 
+class App extends Component {
+
+	state = {
+		events: [
+			{
+				start: new Date(),
+				end: new Date(moment().add(1, "days")),
+				title: "Some title"
+			}
+		]
+	};
+
+	render() {
+		return (
+			<div className="App">
+				<Calendar
+					defaultDate={new Date()}
+					defaultView="month"
+					events={this.state.events}
+					localizer={localizer}
+					style={style}
+				/>
+			</div>
+		);
 	}
-
-});
-
-
-function Calendar(props) {
-	const { classes } = props;
-	return (
-		<div className={classes.paper}>
-			<Typography>
-				Calendar
-			</Typography>
-		</div>
-	);
 }
 
-Calendar.propTypes ={
-	classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(Calendar);
+export default App;
