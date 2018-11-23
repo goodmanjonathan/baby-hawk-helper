@@ -2,11 +2,9 @@ import React from 'react';
 
 const libaxios = require("axios");
 const axios = libaxios.create({
-    baseURL: "http://dcm.uhcl.edu/c438818fa01g2",
-    timeout: 10000,
-    headers: {
-        "X-Access-Control-Allow-Origin": "XMLHttpRequest",
-    },
+    //baseURL: "http://dcm.uhcl.edu/c438818fa01g2",
+    baseURL: "http://localhost:65365",
+    timeout: 1000,
 });
 
 export default class Login extends React.Component {
@@ -20,36 +18,52 @@ export default class Login extends React.Component {
                 lname: null,
                 passwd: null,
             },
-            error: false,
+            valid: false,
+            reason: "",
         };
 
         this.getStudent = () => {
             let uid = document.getElementById("uid").value;
             let pw = document.getElementById("pw").value;
 
-            axios.get("/api/student/" + uid /*{
-                    params: {
-                        Id: uid,
-                        Passwd: pw,
-                    }
-                }*/)
+            axios.post("/api/student/get", {
+                    id: uid,
+                    password: pw,
+                })
                 .then((response) => {
                     console.log(response);
 
-                    this.setState({
-                        student: {
-                            id: uid,
-                            passwd: pw,
-                        },
-                        error: false,
-                    });
+                    if (response.data.Valid === false) {
+                        let reason;
+                        switch (response.data.Reason) {
+                        case 1:
+                            reason = "authentication error";
+                            break;
+                        case 2:
+                            reason = "db connection error: " + response.data.ReasonEx;
+                            break;
+                        default:
+                            reason = "unknown server error";
+                        }
+
+                        this.setState({
+                            valid: false,
+                            reason: reason,
+                        });
+                    } else if (response.data.Valid === true) {
+                        this.setState({
+                            student: {
+                                id: uid,
+                                passwd: pw,
+                                fname: response.data.FirstName,
+                                lname: response.data.LastName,
+                            },
+                            valid: true,
+                        })
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
-
-                    this.setState({
-                        error: true,
-                    })
                 });
         };
     }
@@ -65,12 +79,12 @@ export default class Login extends React.Component {
                 <br/>
                 <button id="login" onClick={this.getStudent}>Login</button>
 
-                <p id="id">{this.state.id}</p>
-                <p id="fname">{this.state.fname}</p>
-                <p id="lname">{this.state.lname}</p>
-                <p id="passwd">{this.state.passwd}</p>
+                <p id="id">{this.state.student.id}</p>
+                <p id="fname">{this.state.student.fname}</p>
+                <p id="lname">{this.state.student.lname}</p>
+                <p id="passwd">{this.state.student.passwd}</p>
 
-                <h1>{this.state.error ? "Error" : ""}</h1>
+                <h1>{this.state.valid ? "ok" : this.state.reason}</h1>
             </div>
         );
     }
