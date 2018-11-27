@@ -1,9 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
+import Login from "../Login";
 
 const styles = theme => ({
 	paper: {
@@ -21,6 +22,7 @@ function Settings(props) {
 			<Typography>
 				Settings
 			</Typography>
+			<button onClick={() => ReactDOM.render(<Login/>, document.getElementById("root"))}>Logout</button>
 		</div>
 	);
 }

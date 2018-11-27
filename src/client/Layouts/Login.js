@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
 const libaxios = require("axios");
 const axios = libaxios.create({
@@ -59,7 +61,8 @@ export default class Login extends React.Component {
                                 lname: response.data.LastName,
                             },
                             valid: true,
-                        })
+                        });
+                        ReactDOM.render(<App/>, document.getElementById("root"));
                     }
                 })
                 .catch((error) => {

@@ -21,10 +21,20 @@ namespace BabyHawkHelperServer.Controllers {
         [HttpPost]
         public async void Insert() {
             dynamic obj = await Request.Content.ReadAsAsync<JObject>();
-            int id = obj.id;
-            string password = obj.password;
-            string firstName = obj.firstName;
-            string lastName = obj.lastName;
+            int id;
+            string password;
+            string firstName;
+            string lastName;
+
+            try {
+                id = obj.id;
+                password = obj.password;
+                firstName = obj.firstName;
+                lastName = obj.lastName;
+            } catch (Exception) {
+                log.Error("[StudentController::Insert] invalid request payload");
+                return;
+            }
 
             var connString = ConfigurationManager.ConnectionStrings["dev"].ConnectionString;
 
@@ -44,7 +54,7 @@ namespace BabyHawkHelperServer.Controllers {
                     }
                 }
             } catch (SqlException ex) {
-                log.Error("[StudentController] failed to access database: " + ex.Message);
+                log.Error("[StudentController::Insert] failed to access database: " + ex.Message);
                 throw ex;
             }
         }
@@ -52,8 +62,19 @@ namespace BabyHawkHelperServer.Controllers {
         [HttpPost]
         public async Task<IHttpActionResult> Get() {
             dynamic obj = await Request.Content.ReadAsAsync<JObject>();
-            int id = obj.id;
-            string password = obj.password;
+            int id;
+            string password;
+            try {
+                id = obj.id;
+                password = obj.password;
+            } catch (Exception) {
+                log.Error("[StudentController::Get] invalid request payload");
+                return Ok(new Student {
+                    Valid = false,
+                    Reason = 2,
+                    ReasonEx = "invalid request payload",
+                });
+            }
 
             var connString = ConfigurationManager.ConnectionStrings["dev"].ConnectionString;
 
@@ -74,7 +95,7 @@ namespace BabyHawkHelperServer.Controllers {
                             var passwordMatch = BCrypt.Net.BCrypt.Verify(password, hash);
 
                             if (!foundId | !passwordMatch) {
-                                log.Info("[StudentController] authentication failed for student: "
+                                log.Info("[StudentController::Get] authentication failed for student: "
                                     + id.ToString() + ", password: " + password);
                                 return Ok(new Student {
                                     Valid = false,
@@ -87,7 +108,7 @@ namespace BabyHawkHelperServer.Controllers {
                                     FirstName = reader.GetString(0),
                                     LastName = reader.GetString(2),
                                 });
-                                log.Info("[StudentController] returning info for student "
+                                log.Info("[StudentController::Get] returning info for student "
                                     + id.ToString() + ": " + result.ToString());
                                 return result;
                             }
@@ -95,7 +116,7 @@ namespace BabyHawkHelperServer.Controllers {
                     }
                 }
             } catch (Exception ex) {
-                log.Error("[StudentController] failed to access database: " + ex.Message);
+                log.Error("[StudentController::Get] failed to access database: " + ex.Message);
                 return Ok(new Student {
                     Valid = false,
                     Reason = 2,
