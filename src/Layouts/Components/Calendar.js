@@ -1,13 +1,17 @@
 import React, { Component, Fragment } from "react";
-import Dialog from '@material-ui/core/Dialog';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
-import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Calendar from "react-big-calendar";
 import moment from "moment";
 import { myEvents } from './Events.js';
+
 
 import style from 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -32,6 +36,8 @@ function Event({ event }) {
 	)
 }
 
+
+
 const styles = theme => ({
 	paperStyle: {
 		width: '70vh',
@@ -53,7 +59,13 @@ class App extends Component {
 
 	state = {
 		events: myEvents,
+		customEvents: [],
 		open: false,
+		newOpen: false,
+		title: 'placeholder',
+		desc: 'placeholder',
+		start: new Date(),
+		end: new Date(),
 		selected:
 			{
 				start: new Date(),
@@ -73,6 +85,35 @@ class App extends Component {
 		this.setState({ open: false });
 	};
 
+	handleCustomDialog = ({start, end}) => {
+		this.setState({newOpen: true});
+		this.setState({cStart: start});
+		this.setState({cEnd: end});
+	};
+
+	handleCustomClose = () => {
+		this.setState({newOpen: false});
+		this.setState({
+				customEvents: [
+					...this.state.customEvents,
+					{
+						start: this.state.cStart,
+						end: this.state.cEnd,
+						title: this.state.title,
+						desc: this.state.desc,
+					},
+				],
+			});
+	};
+
+	handleTitle = (e) => {
+		this.setState({title: e.target.value});
+	};
+
+	handleDesc = (e) => {
+		this.setState({desc: e.target.value});
+	};
+
 	render() {
 		const { classes } = this.props
 		console.log(this.state.events)
@@ -82,7 +123,8 @@ class App extends Component {
 					defaultDate={new Date()}
 					defaultView="month"
 					popup
-					events={this.state.events}
+					selectable
+					events={[...this.state.events,...this.state.customEvents]}
 					localizer={localizer}
 					style={style}
 					views = {['month','day','agenda']}
@@ -93,6 +135,7 @@ class App extends Component {
 						},
 					}}
 					onSelectEvent = {this.handlePopUp}
+					onSelectSlot = {this.handleCustomDialog}
 				/>
 				<Dialog open = {this.state.open}
 					onClose = {this.handleClose}
@@ -105,6 +148,33 @@ class App extends Component {
 							{this.state.selected.desc}
 						</DialogContentText>
 					</DialogContent>
+				</Dialog>
+				<Dialog open = {this.state.newOpen}
+					onClose = {this.handleCustomClose}
+				>
+					<DialogTitle>New Event</DialogTitle>
+					<DialogContent>
+						<TextField
+							autoFocus
+							margin="dense"
+							id="title"
+							label="Title"
+							fullWidth
+							onChange = {this.handleTitle}
+						/>
+						<TextField
+							margin="dense"
+							id="desc"
+							label="Description"
+							fullWidth
+							onChange = {this.handleDesc}
+						/>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={this.handleCustomClose} color="primary">
+							Okay
+						</Button>
+					</DialogActions>
 				</Dialog>
 			</div>
 		);
