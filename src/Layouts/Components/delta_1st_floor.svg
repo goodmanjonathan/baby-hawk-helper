@@ -12570,22 +12570,11 @@ CCGEEEIIIYQrIr0qhBBCCCGEEML1sNn+P01mpx1YcXSQAAAAAElFTkSuQmCC
      y="0"
      inkscape:label="image4526" />
   <path
-	 class="theroom136"
-     style="opacity:0.02000002;fill:#ff0006;fill-opacity:0.66019443;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker5042);filter:url(#filter19835)"
      d="m 362.57022,65.15802 0.73544,85.31064 h 111.05092 l 0.73543,-84.575203 z"
      id="path4528"
-     inkscape:connector-curvature="0"
-     onmouseover="this.style.opacity=1"
-     onmouseout="this.style.opacity=0"
-     onload="" />
+  />
   <path
-	 class="theroom133"
-     style="opacity:0;fill:#ff0006;fill-opacity:0.66019437;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter10037)"
      d="m 222.10184,65.15802 -1.47087,87.51695 58.09948,-2.94175 -0.73543,-85.310636 z"
      id="room133"
-     inkscape:connector-curvature="0"
-     onmouseover="this.style.opacity=1"
-     onmouseout="this.style.opacity=0"
-     onclick="document.getElementById('path4528').style.opacity=1"
-     inkscape:label="room133" />
+  />
 </svg>
