@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+//import { getCachedStudent, getStudent } from "../authentication";
 
 const libaxios = require("axios");
 const axios = libaxios.create({
@@ -8,6 +9,13 @@ const axios = libaxios.create({
     baseURL: "http://localhost:65365",
     timeout: 1000,
 });
+
+/*
+export function logout() {
+    return axios.post("/api/student/logout", {})
+        .then((_) => true)
+        .catch((error) => console.log("logout failed: " + error));
+}*/
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -24,7 +32,20 @@ export default class Login extends React.Component {
             reason: "",
         };
 
+        this.getCachedStudent = () => {
+            console.log("getting cached student");
+
+            axios.post("/api/student/getcached", {})
+                .then((response) => {
+                    console.log("returned from getCachedStudent: " + result);
+                    ReactDOM.render(<App/>, document.getElementById("root"));
+                })
+                .catch((error) => console.log("cached student unavailable"));
+        };
+
         this.getStudent = () => {
+            console.log("getting non-cached student");
+        
             let uid = document.getElementById("uid").value;
             let pw = document.getElementById("pw").value;
 
@@ -33,8 +54,10 @@ export default class Login extends React.Component {
                     password: pw,
                 })
                 .then((response) => {
-                    console.log(response);
-
+                    console.log("returned from getStudent: " + response);
+    
+                    let result;
+    
                     if (response.data.Valid === false) {
                         let reason;
                         switch (response.data.Reason) {
@@ -47,21 +70,32 @@ export default class Login extends React.Component {
                         default:
                             reason = "unknown server error";
                         }
-
-                        this.setState({
+    
+                        result = {
+                            student: {
+                                id: null,
+                                passwd: null,
+                                fname: null,
+                                lname: null,
+                            },
                             valid: false,
                             reason: reason,
-                        });
+                        };
                     } else if (response.data.Valid === true) {
-                        this.setState({
+                        result = {
                             student: {
-                                id: uid,
-                                passwd: pw,
+                                id: uid.value,
+                                passwd: pw.value,
                                 fname: response.data.FirstName,
                                 lname: response.data.LastName,
                             },
                             valid: true,
-                        });
+                            reason: null
+                        };
+                    }
+    
+                    this.setState(result);
+                    if (result.valid) {
                         ReactDOM.render(<App/>, document.getElementById("root"));
                     }
                 })
@@ -72,6 +106,8 @@ export default class Login extends React.Component {
     }
 
     render() {
+        this.getCachedStudent();
+
         return (
             <div>
                 <input id="uid" type="text" defaultValue="user id"></input>

@@ -1,19 +1,30 @@
 ﻿using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.SessionState;
 
 using Newtonsoft.Json.Linq;
 
 using BabyHawkHelperServer.Models;
-using System.Data.SqlClient;
-using System.Data;
-using System.Configuration;
 
 namespace BabyHawkHelperServer.Controllers {
+#if DEBUG
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+#endif
     public class StudentController: ApiController {
+        private static readonly string profile =
+#if DEBUG
+                "dev"
+#else
+                "prod"
+#endif
+            ;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(
             System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
         );
@@ -25,7 +36,6 @@ namespace BabyHawkHelperServer.Controllers {
             string password;
             string firstName;
             string lastName;
-
             try {
                 id = obj.id;
                 password = obj.password;
@@ -36,7 +46,7 @@ namespace BabyHawkHelperServer.Controllers {
                 return;
             }
 
-            var connString = ConfigurationManager.ConnectionStrings["dev"].ConnectionString;
+            var connString = ConfigurationManager.ConnectionStrings[profile].ConnectionString;
 
             try {
                 using (var conn = new SqlConnection(connString)) {
@@ -60,7 +70,24 @@ namespace BabyHawkHelperServer.Controllers {
         }
 
         [HttpPost]
+        public IHttpActionResult GetCached() {
+            var cachedStudent = (Student)HttpContext.Current.Application["student"];
+            if (cachedStudent != null)
+                return Ok(cachedStudent);
+            else
+                return Ok(new Student {
+                    Valid = false,
+                    Reason = 1,
+                });
+        }
+
+        [HttpPost]
         public async Task<IHttpActionResult> Get() {
+            /*var cookie = Request.Headers.GetCookies("student");
+            if (cookie[0] != null) {
+                return Ok((Student)HttpContext.Current.Application[cookie[0].ToString()]);
+            }*/
+
             dynamic obj = await Request.Content.ReadAsAsync<JObject>();
             int id;
             string password;
@@ -76,7 +103,7 @@ namespace BabyHawkHelperServer.Controllers {
                 });
             }
 
-            var connString = ConfigurationManager.ConnectionStrings["dev"].ConnectionString;
+            var connString = ConfigurationManager.ConnectionStrings[profile].ConnectionString;
 
             try {
                 using (var conn = new SqlConnection(connString)) {
@@ -102,15 +129,16 @@ namespace BabyHawkHelperServer.Controllers {
                                     Reason = 1,
                                 });
                             } else {
-                                var result = Ok(new Student {
+                                var result = new Student {
                                     Valid = true,
                                     Id = id,
                                     FirstName = reader.GetString(0),
                                     LastName = reader.GetString(2),
-                                });
+                                };
                                 log.Info("[StudentController::Get] returning info for student "
                                     + id.ToString() + ": " + result.ToString());
-                                return result;
+                                //HttpContext.Current.Application["student"] = result;
+                                return Ok(result);
                             }
                         }
                     }
@@ -124,5 +152,11 @@ namespace BabyHawkHelperServer.Controllers {
                 });
             }
         }
+
+        /*
+        [HttpPost]
+        public void Logout() {
+            HttpContext.Current.Application["student"] = null;
+        }*/
     }
 }

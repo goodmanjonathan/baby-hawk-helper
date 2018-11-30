@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Login from "../Login";
+//import { logout } from "../../authentication";
 
 const styles = theme => ({
 	paper: {
@@ -14,6 +15,9 @@ const styles = theme => ({
 
 });
 
+function logoutAndSegue() {
+	ReactDOM.render(<Login/>, document.getElementById("root"));
+}
 
 function Settings(props) {
 	const { classes } = props;
@@ -22,12 +26,13 @@ function Settings(props) {
 			<Typography>
 				Settings
 			</Typography>
-			<button onClick={() => ReactDOM.render(<Login/>, document.getElementById("root"))}>Logout</button>
+			<br/>
+			<button onClick={logoutAndSegue}>Logout</button>
 		</div>
 	);
 }
 
-Settings.propTypes ={
+Settings.propTypes = {
 	classes: PropTypes.object.isRequired,
 }
 
