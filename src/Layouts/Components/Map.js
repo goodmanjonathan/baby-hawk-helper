@@ -1,32 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import React, { Component } from "react";
+import { SvgLoader, SvgProxy } from "react-svgmt";
+import testImg from './delta_1st_floor.png';
+import testSvg from './delta_1st_floor.svg';
 
-
-const styles = theme => ({
-	paper: {
-		flexGrow: 1,
-		padding: theme.spacing.unit * 3,
+class App extends Component {
+	render(){
+		return(
+			<div className="App">
+				<h1>
+					Map
+				</h1>
+				<object type="image/svg+xml" data={testSvg} border="0" width="1300" height="800">
+				</object>
+				
+				<SvgLoader path="https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg">
+					<SvgProxy selector="#br" fill="green" />
+				</SvgLoader>
+				
+			</div>
+		)
 	}
-
-});
-
-
-function Map(props) {
-	const { classes } = props;
-	return (
-		<div className={classes.paper}>
-			<Typography>
-				Map
-			</Typography>
-		</div>
-	);
 }
 
-Map.propTypes ={
-	classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(Map);
+export default App;
