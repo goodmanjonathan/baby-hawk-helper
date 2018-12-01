@@ -147,8 +147,3 @@ export default class Map extends React.Component {
 		)
 	}
 }
-<<<<<<< Updated upstream
-
-export default App;
-=======
->>>>>>> Stashed changes
