@@ -32,7 +32,7 @@ export default class Login extends React.Component {
             reason: "",
         };
 
-        this.getCachedStudent = () => {
+        /*this.getCachedStudent = () => {
             console.log("getting cached student");
 
             axios.post("/api/student/getcached", {})
@@ -41,7 +41,7 @@ export default class Login extends React.Component {
                     ReactDOM.render(<App/>, document.getElementById("root"));
                 })
                 .catch((error) => console.log("cached student unavailable"));
-        };
+        };*/
 
         this.getStudent = () => {
             console.log("getting non-cached student");
@@ -84,8 +84,8 @@ export default class Login extends React.Component {
                     } else if (response.data.Valid === true) {
                         result = {
                             student: {
-                                id: uid.value,
-                                passwd: pw.value,
+                                id: uid,
+                                passwd: pw,
                                 fname: response.data.FirstName,
                                 lname: response.data.LastName,
                             },
@@ -96,7 +96,8 @@ export default class Login extends React.Component {
     
                     this.setState(result);
                     if (result.valid) {
-                        ReactDOM.render(<App/>, document.getElementById("root"));
+                        console.log("creating App with userId: " + result.student.userId);
+                        ReactDOM.render(<App userId={result.student.id}/>, document.getElementById("root"));
                     }
                 })
                 .catch((error) => {
@@ -106,7 +107,7 @@ export default class Login extends React.Component {
     }
 
     render() {
-        this.getCachedStudent();
+        //this.getCachedStudent();
 
         return (
             <div>

@@ -1,73 +1,56 @@
-import React, { Component } from "react";
-import { SvgLoader, SvgProxy } from "react-svgmt";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import delta_1st_floor_SVG from './delta_1st_floor.svg';
 import './maps.css';
 
-/*const libaxios = require("axios");
+const libaxios = require("axios");
 const axios = libaxios.create({
-	baseURL: "http://localhost:8080",
+	baseURL: "http://localhost:65365",
 	//baseURL: "http://dcm.uhcl.edu/c438818fa01g2"
 	timeout: 1000
-});*/
+});
 
-class App extends Component {
-	/*constructor(props) {
+export default class Map extends React.Component {
+	constructor(props) {
 		super(props);
+		console.log("Map userId: " + props.userId);
 		this.state = {
-			userid: props.userid,
+			userId: props.userId,
 		};
 		
 	    this.selectClassRoooms = () => {
-			axios.post("api/map", {
-					userid: this.state.userid, // FIXME
+			console.log("getting locations for " + this.state.userId);
+
+			axios.post("api/location/getall", {
+					userId: this.state.userId,
 				})
 				.then((response) => {
-					for (let datum of response) {
-						let buildingNumber = datum.buildingNumber;
-						let professor = datum.professor;
-						let dateTime = datum.dateTime;
+					console.log(response);
+					for (let datum of response.data) {
+						let roomNumber = datum.RoomNumber;
+						let professor = datum.Professor;
+						let startTime = datum.StartTime;
+						let endTime = datum.EndTime;
 						
-						document.getElementById("room" + buildingNumber).setAttribute("fill", "blue");
-						document.getElementById("room" + buildingNumber).setAttribute("opacity", "0.5");
-
+						let room = document.getElementById("room" + roomNumber);
+						room.setAttribute("fill", "blue");
+						room.setAttribute("opacity", "0.5");
 					}
 				})
 				.catch((error) => {
 					console.error(error);
-				});
-			*/
-				/*
-				document.getElementById("room136").setAttribute("fill", "blue");
-				document.getElementById("room136").setAttribute("opacity", "0.5");
-				document.getElementById("room128").setAttribute("fill", "blue");
-				document.getElementById("room128").setAttribute("opacity", "0.5");
-				document.getElementById("room140").setAttribute("fill", "blue");
-				document.getElementById("room140").setAttribute("opacity", "0.5");
-				document.getElementById("room158A").setAttribute("fill", "blue");
-				document.getElementById("room158A").setAttribute("opacity", "0.5");
-				
+				});		
 		};
 	}
-	*/
-	
-	selectClassRoooms(){
-		document.getElementById("room136").setAttribute("fill", "blue");
-		document.getElementById("room136").setAttribute("opacity", "0.5");
-		document.getElementById("room128").setAttribute("fill", "blue");
-		document.getElementById("room128").setAttribute("opacity", "0.5");
-		document.getElementById("room140").setAttribute("fill", "blue");
-		document.getElementById("room140").setAttribute("opacity", "0.5");
-		document.getElementById("room158A").setAttribute("fill", "blue");
-		document.getElementById("room158A").setAttribute("opacity", "0.5");
+
+	showDialogBox() {
 	}
 	
-	showDialogBox(){
-		
-	}
-	
-	render(){
-		return(
-			<div className="App">
+	render() {
+		return (
+			<div className="Map" onLoad={this.selectClassRoooms}>
 				<h1>
 					Maps
 				</h1>
@@ -164,5 +147,8 @@ class App extends Component {
 		)
 	}
 }
+<<<<<<< Updated upstream
 
 export default App;
+=======
+>>>>>>> Stashed changes

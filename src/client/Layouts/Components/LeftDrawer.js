@@ -98,10 +98,14 @@ const styles = theme => ({
 
 
 class LeftDrawer extends Component {
-		state = {
-				selectedIndex: 0,
-				open: true,
-		};
+		constructor(props) {
+			super(props);
+			console.log("LeftDrawer userId: " + props.userId);
+			this.state = {
+					selectedIndex: 0,
+					userId: props.userId,
+			};
+		}
 
 		handleListItemClick = (event, index) => {
 				this.setState({selectedIndex: index});
@@ -204,7 +208,7 @@ class LeftDrawer extends Component {
 								<Route exact path="/" component = {Dashboard} />
 								<Route exact path="/schedule" component = {Schedule} />
 								<Route exact path="/calendar" component = {Calendar} />
-								<Route exact path="/map" component = {Map} />
+								<Route exact path="/map" render = {props => <Map userId={this.state.userId}/>} />
 								<Route exact path="/settings" component = {Settings} />
 							</div>
 						</div>

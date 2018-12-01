@@ -19,8 +19,9 @@ const theme = createMuiTheme({
 export default class extends Component {
 		constructor(props) {
 			super(props);
+			console.log("App userId: " + props.userId);
 			this.state = {
-
+				userId: props.userId,
 			};
 		}
 
@@ -28,7 +29,7 @@ export default class extends Component {
 				return(
 						<div className="App">
 								<MuiThemeProvider theme={theme}>
-										<LeftDrawer />
+										<LeftDrawer userId={this.state.userId}/>
 								</MuiThemeProvider>
 						</div>
 				);

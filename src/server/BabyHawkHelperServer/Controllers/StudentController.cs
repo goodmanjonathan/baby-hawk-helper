@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.SessionState;
 
 using Newtonsoft.Json.Linq;
 
@@ -69,6 +68,7 @@ namespace BabyHawkHelperServer.Controllers {
             }
         }
 
+        /*
         [HttpPost]
         public IHttpActionResult GetCached() {
             var cachedStudent = (Student)HttpContext.Current.Application["student"];
@@ -80,6 +80,7 @@ namespace BabyHawkHelperServer.Controllers {
                     Reason = 1,
                 });
         }
+        */
 
         [HttpPost]
         public async Task<IHttpActionResult> Get() {
