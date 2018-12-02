@@ -51,7 +51,7 @@ const styles = theme => ({
 		width: '70vh',
 		padding: 0,
 		margins: 0,
-		position: 'absoulte',
+		position: 'absolute',
 	}
 });
 
@@ -62,8 +62,8 @@ class App extends Component {
 		customEvents: [],
 		open: false,
 		newOpen: false,
-		title: 'placeholder',
-		desc: 'placeholder',
+		title: 'New Event',
+		desc: '',
 		start: new Date(),
 		end: new Date(),
 		selected:
@@ -86,6 +86,7 @@ class App extends Component {
 	};
 
 	handleCustomDialog = ({start, end}) => {
+		console.log({start});
 		this.setState({newOpen: true});
 		this.setState({cStart: start});
 		this.setState({cEnd: end});
@@ -127,12 +128,10 @@ class App extends Component {
 					events={[...this.state.events,...this.state.customEvents]}
 					localizer={localizer}
 					style={style}
-					views = {['month','day','agenda']}
+					views = {['month','day']}
 					components={{
 						event: Event,
-						agenda: {
-							event: EventAgenda,
-						},
+
 					}}
 					onSelectEvent = {this.handlePopUp}
 					onSelectSlot = {this.handleCustomDialog}
