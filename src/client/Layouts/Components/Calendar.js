@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Calendar from "react-big-calendar";
 import moment from "moment";
 import { myEvents } from './Events.js';
-
+import { axios } from "../App";
 
 import style from 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -56,25 +56,45 @@ const styles = theme => ({
 });
 
 class App extends Component {
+	constructor(props) {
+		super(props);
 
-	state = {
-		events: myEvents,
-		customEvents: [],
-		open: false,
-		newOpen: false,
-		title: 'New Event',
-		desc: '',
-		start: new Date(),
-		end: new Date(),
-		selected:
-			{
-				start: new Date(),
-				end: new Date(),
-				title: 'placeholder',
-				desc: 'placeholder',
-			}
+		let customEvents = [];
+		axios.post("api/event/getall", { userId: 1000002 })
+			.then((response) => {
+				for (let datum in response) {
+					let title = datum.Title;
+					let description = datum.Description;
+					let startTime = datum.StartTime;
+					let endTime = datum.EndTime;
 
-	};
+					console.log(title, description, startTime, endTime);
+					//customEvents.push();
+				}
+			})
+			.catch((error) => {
+				console.log("failed to get custom events: " + error);
+			});
+
+		this.state = {
+			events: myEvents,
+			customEvents,
+			open: false,
+			newOpen: false,
+			title: 'placeholder',
+			desc: 'placeholder',
+			start: new Date(),
+			end: new Date(),
+			selected:
+				{
+					start: new Date(),
+					end: new Date(),
+					title: 'placeholder',
+					desc: 'placeholder',
+				}
+
+		};
+	}
 
 	handlePopUp = (event) => {
 		this.setState({open: true});
