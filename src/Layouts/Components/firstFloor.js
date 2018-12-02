@@ -1,4 +1,4 @@
-const features ={
+const firstFloor ={
 	"type": "FeatureCollection",
 	"features": [
 		{
@@ -2434,4 +2434,4 @@ const features ={
 	]
 }
 
-export {features};
+export {firstFloor};
