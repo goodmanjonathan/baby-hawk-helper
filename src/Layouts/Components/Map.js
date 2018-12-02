@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Map, TileLayer, GeoJSON, LayersControl } from 'react-leaflet';
+import { Map, TileLayer, GeoJSON, LayersControl, Tooltip } from 'react-leaflet';
 import {firstFloor} from './firstFloor.js';
 import {secondFloor} from './secondFloor.js';
+import Button from "@material-ui/core/Button";
 
 const mapCenter = [29.57766548841692,-95.10419867344351];
 const zoomLevel = 19;
@@ -23,9 +24,11 @@ const schedule = {
 
 export default class App extends Component {
 			onEachFeature = (feature, layer) => {
-			// does this feature have a property named popupContent?
 			if (schedule.rooms.includes(feature.properties.Room)) {
 					layer.bindPopup(schedule.classes[feature.properties.Room]);
+			}
+			else if(feature.properties.Type == "Classroom") {
+				layer.bindPopup("Room#" + feature.properties.Room);
 			}
 			else{
 				layer.bindPopup(feature.properties.Type);
@@ -38,12 +41,14 @@ export default class App extends Component {
 										center={mapCenter}
 										zoom={zoomLevel}
 								>
+
 									<LayersControl>
 										<LayersControl.BaseLayer name = "Map" checked = 'true'>
 											<TileLayer
 											url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 											 attribution="&copy;<a>href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>contributor"
 											/>
+
 										</LayersControl.BaseLayer>
 										<LayersControl.Overlay checked name="Floor1">
 											<GeoJSON data = {firstFloor} style = {function(feature) {
@@ -71,6 +76,7 @@ export default class App extends Component {
 										</LayersControl.Overlay>
 									</LayersControl>
 								</Map>
+								<Button>Legend</Button>
 						</div>
 				);
 		}
