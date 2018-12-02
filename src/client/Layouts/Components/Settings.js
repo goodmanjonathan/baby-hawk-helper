@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Login from "../Login";
-//import { logout } from "../../authentication";
 
 const styles = theme => ({
 	paper: {

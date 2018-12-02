@@ -3,13 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { axios } from "./App";
 
-/*
-export function logout() {
-    return axios.post("/api/student/logout", {})
-        .then((_) => true)
-        .catch((error) => console.log("logout failed: " + error));
-}*/
-
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -24,17 +17,6 @@ export default class Login extends React.Component {
             valid: false,
             reason: "",
         };
-
-        /*this.getCachedStudent = () => {
-            console.log("getting cached student");
-
-            axios.post("/api/student/getcached", {})
-                .then((response) => {
-                    console.log("returned from getCachedStudent: " + result);
-                    ReactDOM.render(<App/>, document.getElementById("root"));
-                })
-                .catch((error) => console.log("cached student unavailable"));
-        };*/
 
         this.getStudent = () => {
             console.log("getting non-cached student");
@@ -100,8 +82,6 @@ export default class Login extends React.Component {
     }
 
     render() {
-        //this.getCachedStudent();
-
         return (
             <div>
                 <input id="uid" type="text" defaultValue="user id"></input>
