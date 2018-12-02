@@ -2,15 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+
+import { axios } from "../App";
+
 import delta_1st_floor_SVG from './delta_1st_floor.svg';
 import './maps.css';
-
-const libaxios = require("axios");
-const axios = libaxios.create({
-	baseURL: "http://localhost:65365",
-	//baseURL: "http://dcm.uhcl.edu/c438818fa01g2"
-	timeout: 1000
-});
 
 export default class Map extends React.Component {
 	constructor(props) {

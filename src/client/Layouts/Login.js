@@ -1,14 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-//import { getCachedStudent, getStudent } from "../authentication";
-
-const libaxios = require("axios");
-const axios = libaxios.create({
-    //baseURL: "http://dcm.uhcl.edu/c438818fa01g2",
-    baseURL: "http://localhost:65365",
-    timeout: 1000,
-});
+import { axios } from "./App";
 
 /*
 export function logout() {
