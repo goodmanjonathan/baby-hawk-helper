@@ -4,6 +4,6 @@ using System.Linq;
 using System.Web;
 
 namespace BabyHawkHelperServer.Models {
-    public class Days {
+    public class Schedule {
     }
 }
