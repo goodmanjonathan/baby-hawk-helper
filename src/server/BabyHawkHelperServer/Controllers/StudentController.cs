@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -68,27 +67,8 @@ namespace BabyHawkHelperServer.Controllers {
             }
         }
 
-        /*
-        [HttpPost]
-        public IHttpActionResult GetCached() {
-            var cachedStudent = (Student)HttpContext.Current.Application["student"];
-            if (cachedStudent != null)
-                return Ok(cachedStudent);
-            else
-                return Ok(new Student {
-                    Valid = false,
-                    Reason = 1,
-                });
-        }
-        */
-
         [HttpPost]
         public async Task<IHttpActionResult> Get() {
-            /*var cookie = Request.Headers.GetCookies("student");
-            if (cookie[0] != null) {
-                return Ok((Student)HttpContext.Current.Application[cookie[0].ToString()]);
-            }*/
-
             dynamic obj = await Request.Content.ReadAsAsync<JObject>();
             int id;
             string password;
@@ -138,7 +118,6 @@ namespace BabyHawkHelperServer.Controllers {
                                 };
                                 log.Info("[StudentController::Get] returning info for student "
                                     + id.ToString() + ": " + result.ToString());
-                                //HttpContext.Current.Application["student"] = result;
                                 return Ok(result);
                             }
                         }
@@ -153,11 +132,5 @@ namespace BabyHawkHelperServer.Controllers {
                 });
             }
         }
-
-        /*
-        [HttpPost]
-        public void Logout() {
-            HttpContext.Current.Application["student"] = null;
-        }*/
     }
 }
