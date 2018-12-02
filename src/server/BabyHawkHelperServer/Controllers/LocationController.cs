@@ -35,7 +35,8 @@ namespace BabyHawkHelperServer.Controllers {
             try {
                 id = obj.userId;
             } catch (Exception ex) {
-                Debug.WriteLine("[LocationController::GetAll] invalid request payload");
+                Debug.WriteLine("[LocationController::GetAll] invalid request payload: "
+                    + ex.Message);
                 throw ex;
             }
 
@@ -44,8 +45,8 @@ namespace BabyHawkHelperServer.Controllers {
             try {
                 using (var conn = new SqlConnection(connString)) {
                     conn.Open();
-                    var query = "select distinct roomNumber, professor.name, courseTimes.startTime, "
-                        + "courseTimes.endTime "
+                    var query = "select distinct roomNumber, professor.name, "
+                        + "courseTimes.startTime, courseTimes.endTime "
                         + "from student, enroll, course, location, professor, courseTimes "
                         + "where student.id = enroll.studentId and "
                         + "course.id = enroll.courseId and "

@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Dialog from '@material-ui/core/Dialog'; // for skip prompt
+
 import App from './App';
 import { axios } from "./App";
 
