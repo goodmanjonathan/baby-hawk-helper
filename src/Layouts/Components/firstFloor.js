@@ -4,7 +4,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "113"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -37,7 +43,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "112"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -70,7 +82,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "111"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -103,7 +121,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "110"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -136,7 +160,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "109"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -169,7 +199,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "108"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -202,7 +238,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "107"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -235,7 +277,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "106"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -268,7 +316,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "105"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -301,7 +355,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "104"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -342,7 +402,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "103"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -375,7 +441,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "101"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -408,7 +480,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "119A"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -475,7 +553,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "118"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -508,7 +592,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "114"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -549,7 +639,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "115",
+				"Faculty": "Dr. Hall",
+				"Email": "Perkins@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -582,7 +680,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "116"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -615,7 +719,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "120"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -648,7 +758,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "117"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -681,7 +797,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '125',
+				"Room": 125,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -715,7 +831,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '126',
+				"Room": 126,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -749,7 +865,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '130',
+				"Room": 130,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -783,7 +899,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "126A"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -816,7 +938,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "127"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -849,7 +977,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '128',
+				"Room": 128,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -883,7 +1011,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "121"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -916,7 +1050,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "122"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -949,7 +1089,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "123"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -982,7 +1128,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "124"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1015,7 +1167,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "131"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1048,7 +1206,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '132',
+				"Room": 132,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -1082,7 +1240,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '133',
+				"Room": 133,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -1116,8 +1274,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '133',
-				"Type": "Classroom"
+
+
+
+
+
+				"Room": 134,
+				"Type": "Restroom"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1166,7 +1329,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '136',
+				"Room": 136,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -1200,7 +1363,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "139"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1233,7 +1402,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "145"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1266,7 +1441,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "146"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1299,7 +1480,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "147"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1332,7 +1519,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "148",
+				"Faculty": "Dr. Sha",
+				"Email": "Sha@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1365,7 +1560,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "149",
+				"Faculty": "Dr. Lacher",
+				"Email": "Lacher@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1431,7 +1634,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "152",
+				"Faculty": "Dr. Davari",
+				"Email": "Davari@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1472,7 +1683,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "153"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1505,7 +1722,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "154"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1538,7 +1761,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "155"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1571,7 +1800,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "156"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1604,7 +1839,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "175",
+				"Faculty": "Dr. Wei",
+				"Email": "Wei@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1637,7 +1880,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "174",
+				"Faculty": "Dr. Yang",
+				"Email": "Yang@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1670,7 +1921,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "173",
+				"Faculty": "Dr. Buddharaju",
+				"Email": "Buddharaju@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1703,7 +1962,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "172",
+				"Faculty": "Dr. Feagin",
+				"Email": "Feagin@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1744,7 +2011,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "171",
+				"Faculty": "Dr. Boetticher",
+				"Email": "Boetticher@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1777,7 +2052,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "170",
+				"Faculty": "Dr. Liaw",
+				"Email": "Liaw@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1810,7 +2093,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "169",
+				"Faculty": "Dr. Abukmail",
+				"Email": "Abukmail@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1843,7 +2134,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "168",
+				"Faculty": "Dr. Al-Mubaid",
+				"Email": "Hisham@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1876,7 +2175,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "167",
+				"Faculty": "Dr. Perez-Davila",
+				"Email": "Perezd@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1909,7 +2216,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "166"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1942,7 +2255,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "165",
+				"Faculty": "Dr. Abeysekera",
+				"Email": "Abeysekera@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1975,7 +2296,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "164"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -2008,7 +2335,15 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "163",
+				"Faculty": "Dr. Yue",
+				"Email": "Yue@uhcl.edu"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -2049,7 +2384,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "162"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -2150,7 +2491,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Restroom",
+				"Room": "142"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -2183,7 +2530,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "144"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -2232,7 +2585,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '140',
+				"Room": 140,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -2266,7 +2619,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '150',
+				"Room": 150,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -2300,7 +2653,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '160',
+				"Room": 160,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -2334,7 +2687,7 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Room": '159',
+				"Room": 159,
 				"Type": "Classroom"
 			},
 			"geometry": {
@@ -2368,7 +2721,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "157"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -2401,7 +2760,13 @@ const firstFloor ={
 		{
 			"type": "Feature",
 			"properties": {
-				"Type": "Office"
+
+
+
+
+
+				"Type": "Office",
+				"Room": "102"
 			},
 			"geometry": {
 				"type": "Polygon",

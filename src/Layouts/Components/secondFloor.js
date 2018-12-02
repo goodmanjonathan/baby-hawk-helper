@@ -4,7 +4,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "124"
 			},
 			"geometry": {
@@ -38,12 +38,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "237"
 			},
 			"geometry": {
@@ -77,12 +72,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "234"
 			},
 			"geometry": {
@@ -116,12 +106,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "241"
 			},
 			"geometry": {
@@ -179,12 +164,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "242"
 			},
 			"geometry": {
@@ -226,12 +206,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "247"
 			},
 			"geometry": {
@@ -273,8 +248,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": 240
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -306,7 +281,14 @@ const secondFloor = {
 		},
 		{
 			"type": "Feature",
-			"properties": {"Type":"Office"},
+			"properties": {
+
+
+
+
+				"Type": "Office",
+				"Room": "249"
+			},
 			"geometry": {
 				"type": "Polygon",
 				"coordinates": [
@@ -342,8 +324,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "236"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -388,8 +370,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "235"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -426,8 +408,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "228"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -464,8 +446,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "227"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -502,8 +484,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "225"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -540,8 +522,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "224"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -578,8 +560,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "222"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -616,8 +598,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "220"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -654,8 +636,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "233"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -696,8 +678,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "226"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -734,8 +716,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "223"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -772,8 +754,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "221"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -810,8 +792,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "239"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -848,8 +830,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "238"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -881,7 +863,14 @@ const secondFloor = {
 		},
 		{
 			"type": "Feature",
-			"properties": {"Type":"Office"},
+			"properties": {
+
+
+
+
+				"Type": "Office",
+				"Room": "219"
+			},
 			"geometry": {
 				"type": "Polygon",
 				"coordinates": [
@@ -913,11 +902,6 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
 				"Type": "Restroom"
 			},
 			"geometry": {
@@ -967,12 +951,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "216"
 			},
 			"geometry": {
@@ -1010,8 +989,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": "207"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1052,8 +1031,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": "206"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1090,8 +1069,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": "208"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1128,8 +1107,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": "213"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1166,8 +1145,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": "205"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1212,8 +1191,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": "1A"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1250,8 +1229,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": "204"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1288,8 +1267,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Lab"
+				"Type": "Lab",
+				"Room": "203"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1322,12 +1301,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "201"
 			},
 			"geometry": {
@@ -1361,12 +1335,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "202"
 			},
 			"geometry": {
@@ -1400,12 +1369,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "244"
 			},
 			"geometry": {
@@ -1459,12 +1423,7 @@ const secondFloor = {
 		{
 			"type": "Feature",
 			"properties": {
-
-
-
-
-
-				"Type":"Classroom",
+				"Type": "Classroom",
 				"Room": "243"
 			},
 			"geometry": {
@@ -1502,8 +1461,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "232"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1540,8 +1499,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "230"
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -1578,8 +1537,8 @@ const secondFloor = {
 
 
 
-
-				"Type": "Office"
+				"Type": "Office",
+				"Room": "229"
 			},
 			"geometry": {
 				"type": "Polygon",
