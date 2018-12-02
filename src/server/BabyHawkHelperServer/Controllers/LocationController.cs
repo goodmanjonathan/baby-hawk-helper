@@ -44,11 +44,14 @@ namespace BabyHawkHelperServer.Controllers {
             try {
                 using (var conn = new SqlConnection(connString)) {
                     conn.Open();
-                    var query = "select roomNumber, professor, startTime, endTime "
-                        + "from student, enroll, course, location "
+                    var query = "select distinct roomNumber, professor.name, courseTimes.startTime, "
+                        + "courseTimes.endTime "
+                        + "from student, enroll, course, location, professor, courseTimes "
                         + "where student.id = enroll.studentId and "
                         + "course.id = enroll.courseId and "
                         + "course.locationId = location.id and "
+                        + "course.professorId = professor.id and "
+                        + "course.id = courseTimes.courseId and "
                         + "student.id = @id";
 
                     using (var cmd = new SqlCommand(query, conn)) {
@@ -74,7 +77,8 @@ namespace BabyHawkHelperServer.Controllers {
                     }
                 }
             } catch (Exception ex) {
-                Debug.WriteLine("[LocationController::GetAll] failed to access database: " + ex.Message);
+                Debug.WriteLine("[LocationController::GetAll] failed to access database: "
+                    + ex.Message);
                 Debug.WriteLine(ex.StackTrace);
                 throw ex;
             }
