@@ -4,7 +4,6 @@ import App from './Layouts/App';
 import Login from './Layouts/Login';
 import Signup from './Layouts/Signup';
 
-ReactDOM.render(
-	<Login />,
+ReactDOM.render(<App/>,
 	document.getElementById('root')
 );
