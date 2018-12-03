@@ -19,12 +19,8 @@ import FiberManualRecordIcon from '@material-ui/icons/fibermanualrecord';
 const mapCenter = [29.57766548841692,-95.10419867344351];
 const zoomLevel = 19;
 
-const schedule = {
-	rooms : [
-		'119B',
-		'140',
-		"216",
-
+let schedule = {
+	rooms: [
 	],
 	classes: {
 		'119B' : 'Class 1',
@@ -66,124 +62,143 @@ const styles = theme => ({
 
 
 class App extends Component {
-			state = {
-				legend: false,
-			}
-			onEachFeature = (feature, layer) => {
-			if (schedule.rooms.includes(feature.properties.Room)) {
-					layer.bindPopup(schedule.classes[feature.properties.Room]);
-			}
-			else if (feature.properties.Faculty) {
-				layer.bindPopup(
-					"<b>" + feature.properties.Type + "</b><br/>Room: " + feature.properties.Room + "<br/>" + feature.properties.Faculty + "<br/>" + feature.properties.Email
-				);
-			}
-			else{
-				layer.bindPopup(
-					"<b>" + feature.properties.Type + "</b><br/>Room: " + feature.properties.Room
-				);
-			}
-		};
-		handleLegend = () => {
-			this.setState({legend: true});
-		};
-		handleClose = () => {
-			this.setState({legend: false});
-		}
-		render() {
-			const { classes } = this.props;
-				return (
-						<div>
-								<Map
-										center={mapCenter}
-										zoom={zoomLevel}
-								>
+	state = {
+		legend: false,
+	}
 
-									<LayersControl>
-										<LayersControl.BaseLayer name = "Map" checked = 'true'>
-											<TileLayer
-											url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-											 attribution="&copy;<a>href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>contributor"
-											/>
-
-										</LayersControl.BaseLayer>
-										<LayersControl.Overlay checked name="Floor1">
-											<GeoJSON data = {firstFloor} style = {function(feature) {
-													switch (feature.properties.Type) {
-													case 'Classroom': return (schedule.rooms.includes(feature.properties.Room) ? {color: "#ff0000"} : {color: "#0078ad"});
-													case 'Office':   return {color: "#018744"};
-													case 'Lab': return {color: "#000000"};
-													case 'Restroom': return {color: "#bb33ff"}
-											}
-											}}
-											onEachFeature = {this.onEachFeature}
-											/>
-										</LayersControl.Overlay>
-										<LayersControl.Overlay name="Floor2">
-											<GeoJSON data = {secondFloor} style = {function(feature) {
-													switch (feature.properties.Type) {
-													case 'Classroom': return (schedule.rooms.includes(feature.properties.Room) ? {color: "#ff0000"} : {color: "#0078ad"});
-													case 'Office':   return {color: "#018744"};
-													case 'Lab': return {color: "#000000"};
-													case 'Restroom': return {color: "#bb33ff"}
-											}
-											}}
-											onEachFeature = {this.onEachFeature}
-											/>
-										</LayersControl.Overlay>
-									</LayersControl>
-								</Map>
-								<Button onClick = {this.handleLegend}>Legend</Button>
-								<Dialog open = {this.state.legend}
-									onClose = {this.handleClose}>
-									<DialogTitle>Legend</DialogTitle>
-									<DialogContent>
-										<List>
-											<ListItem>
-												<ListItemAvatar>
-													<Avatar className = {classes.enrolledAvatar}>
-														<FiberManualRecordIcon/>
-													</Avatar>
-												</ListItemAvatar>
-												<ListItemText>Enrolled Classes</ListItemText>
-											</ListItem>
-											<ListItem>
-												<ListItemAvatar>
-													<Avatar className = {classes.classAvatar}>
-														<FiberManualRecordIcon/>
-													</Avatar>
-												</ListItemAvatar>
-												<ListItemText>Classes</ListItemText>
-											</ListItem>
-											<ListItem>
-												<ListItemAvatar>
-													<Avatar className = {classes.officeAvatar}>
-														<FiberManualRecordIcon/>
-													</Avatar>
-												</ListItemAvatar>
-												<ListItemText>Offices</ListItemText>
-											</ListItem>
-											<ListItem>
-												<ListItemAvatar>
-													<Avatar className = {classes.labAvatar}>
-														<FiberManualRecordIcon/>
-													</Avatar>
-												</ListItemAvatar>
-												<ListItemText>Labs</ListItemText>
-											</ListItem>
-											<ListItem>
-												<ListItemAvatar>
-													<Avatar className = {classes.restroomAvatar}>
-														<FiberManualRecordIcon/>
-													</Avatar>
-												</ListItemAvatar>
-												<ListItemText>Restrooms</ListItemText>
-											</ListItem>
-										</List>
-									</DialogContent>
-								</Dialog>
-						</div>
-				);
+	onEachFeature = (feature, layer) => {
+		if (schedule.rooms.includes(feature.properties.Room)) {
+			layer.bindPopup(schedule.classes[feature.properties.Room]);
+		} else if (feature.properties.Faculty) {
+			layer.bindPopup(
+				"<b>" + feature.properties.Type + "</b><br/>Room: " + feature.properties.Room
+					+ "<br/>" + feature.properties.Faculty + "<br/>" + feature.properties.Email
+			);
+		} else {
+			layer.bindPopup(
+				"<b>" + feature.properties.Type + "</b><br/>Room: " + feature.properties.Room
+			);
 		}
+	};
+
+	handleLegend = () => {
+		this.setState({legend: true});
+	};
+
+	handleClose = () => {
+		this.setState({legend: false});
+	};
+
+	render() {
+		const { classes } = this.props;
+		const attribution = "&copy; "
+			+ "<a href=http://osm.org/copyright>OpenStreetMap</a>";
+
+		return (
+			<div>
+				<Map
+					center={mapCenter}
+					zoom={zoomLevel}
+				>
+					<LayersControl>
+						<LayersControl.BaseLayer name = "Map" checked = 'true'>
+							<TileLayer
+							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+								attribution={attribution}
+							/>
+
+						</LayersControl.BaseLayer>
+						<LayersControl.Overlay checked name="Floor1">
+							<GeoJSON data = {firstFloor} style = {function(feature) {
+								switch (feature.properties.Type) {
+								case 'Classroom': {
+									return schedule.rooms.includes(feature.properties.Room)
+										? {color: "#ff0000"}
+										: {color: "#0078ad"};
+								}
+								case 'Office':
+									return {color: "#018744"};
+								case 'Lab':
+									return {color: "#000000"};
+								case 'Restroom':
+									return {color: "#bb33ff"};
+								}
+							}}
+							onEachFeature = {this.onEachFeature}
+							/>
+						</LayersControl.Overlay>
+						<LayersControl.Overlay name="Floor2">
+							<GeoJSON data = {secondFloor} style = {function(feature) {
+								switch (feature.properties.Type) {
+								case 'Classroom': {
+									return schedule.rooms.includes(feature.properties.Room)
+										? {color: "#ff0000"}
+										: {color: "#0078ad"};
+								}
+								case 'Office':
+									return {color: "#018744"};
+								case 'Lab':
+									return {color: "#000000"};
+								case 'Restroom':
+									return {color: "#bb33ff"};
+								}
+							}}
+							onEachFeature = {this.onEachFeature}
+							/>
+						</LayersControl.Overlay>
+					</LayersControl>
+				</Map>
+				<Button onClick = {this.handleLegend}>Legend</Button>
+				<Dialog open = {this.state.legend}
+					onClose = {this.handleClose}>
+					<DialogTitle>Legend</DialogTitle>
+					<DialogContent>
+						<List>
+							<ListItem>
+								<ListItemAvatar>
+									<Avatar className = {classes.enrolledAvatar}>
+										<FiberManualRecordIcon/>
+									</Avatar>
+								</ListItemAvatar>
+								<ListItemText>Enrolled Classes</ListItemText>
+							</ListItem>
+							<ListItem>
+								<ListItemAvatar>
+									<Avatar className = {classes.classAvatar}>
+										<FiberManualRecordIcon/>
+									</Avatar>
+								</ListItemAvatar>
+								<ListItemText>Classes</ListItemText>
+							</ListItem>
+							<ListItem>
+								<ListItemAvatar>
+									<Avatar className = {classes.officeAvatar}>
+										<FiberManualRecordIcon/>
+									</Avatar>
+								</ListItemAvatar>
+								<ListItemText>Offices</ListItemText>
+							</ListItem>
+							<ListItem>
+								<ListItemAvatar>
+									<Avatar className = {classes.labAvatar}>
+										<FiberManualRecordIcon/>
+									</Avatar>
+								</ListItemAvatar>
+								<ListItemText>Labs</ListItemText>
+							</ListItem>
+							<ListItem>
+								<ListItemAvatar>
+									<Avatar className = {classes.restroomAvatar}>
+										<FiberManualRecordIcon/>
+									</Avatar>
+								</ListItemAvatar>
+								<ListItemText>Restrooms</ListItemText>
+							</ListItem>
+						</List>
+					</DialogContent>
+				</Dialog>
+			</div>
+		);
+	}
 }
 export default withStyles(styles)(App);
