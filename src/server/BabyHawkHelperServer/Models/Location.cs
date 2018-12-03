@@ -9,5 +9,6 @@ namespace BabyHawkHelperServer.Models {
         public string Professor { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public string CourseName { get; set; }
     }
 }
