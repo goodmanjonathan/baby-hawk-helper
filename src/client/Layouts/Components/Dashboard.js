@@ -18,6 +18,10 @@ const styles = theme => ({
 	},
 	Button: {
     margin: theme.spacing.unit,
+		height: 40,
+		width: 40,
+		minHeight: 0,
+		minWidth: 0,
   },
 	gridList: {
 		height: '100'
@@ -34,10 +38,10 @@ function Dashboard(props) {
 		<Grid container justify = 'center' spacing = {24}>
 				<Grid item xs={12}>
 					<Paper>
-						<div style = {{textAlign: "center"}}>
+						<div style = {{textAlign: "center", padding: 4}}>
 							<a href="http://www.instagram.com/uhclearlake">
-								<Button mini = {true} className={classes.Button} >
-									<img src={require('./images/iconi.png')} width="40" height="40" />
+								<Button className={classes.Button} >
+									<img src={require('./images/iconi.png')} width = "40" height = "40"/>
 								</Button>
 							</a>
 							<a href="https://twitter.com/UHClearLake">
