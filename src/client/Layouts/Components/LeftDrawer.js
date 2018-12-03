@@ -34,9 +34,8 @@ import Dashboard from "./Dashboard";
 import Schedule from "./Schedule";
 import Calendar from "./Calendar";
 import Map from "./Map";
-import Settings from "./Settings";
 
-const pages = ["Dashboard","Schedule","Calendar","Map", "Settings"];
+const pages = ["Dashboard", "Schedule", "Calendar", "Map"];
 const drawerWidth = 60;
 
 const styles = theme => ({
@@ -102,7 +101,7 @@ const styles = theme => ({
 	},
 });
 
-function Login(uid, pw) {
+function login(uid, pw) {
 	console.log("getting non-cached student");
 
 	axios.post("/api/student/get", {
@@ -160,47 +159,53 @@ function Login(uid, pw) {
 class LeftDrawer extends Component {
 		constructor(props) {
 			super(props);
-			console.log("LeftDrawer userId: " + props.userId);
+
 			this.state = {
-					selectedIndex: 0,
-					userId: props.userId,
-					open: true,
-					openLogin: true,
+				// 0 => Dashboard
+				// 1 => Schedule
+				// 2 => Calendar
+				// 3 => Map
+				// 4 => Login
+				selectedIndex: 0,	
+				loggedInUserId: null,
+				drawerOpen: true,
+				loginOpen: true,
+				attemptedLogin: {
 					uid: '',
 					pw: '',
+				},
 			};
 		}
 
 		handleListItemClick = (event, index) => {
-				if(index == 4){
-					this.setState({openLogin: true})
-					return
-				}
-				this.setState({selectedIndex: index});
-
+			if (index === 4) {
+				this.setState({loginOpen: true});
+				return;
+			}
+			this.setState({selectedIndex: index});
 		};
 
 		handleDrawerToggle = () => {
-			this.setState({open: !this.state.open})
+			this.setState({drawerOpen: !this.state.drawerOpen});
 		};
 
 		handleLoginClose = () => {
-			this.setState({openLogin: false})
+			this.setState({loginOpen: false});
 		};
 
 		handleUID = (e) => {
-			this.setState({uid: e.target.value})
+			this.setState({attemptedLogin: { uid: e.target.value}});
 		};
 
 		handlePW = (e) => {
-			this.setState({pw: e.target.value})
+			this.setState({attemptedLogin: { pw: e.target.value}});
 		};
 
 		handleLogin = () => {
-			if(Login(this.state.uid, this.state.pw)){
-				this.setState({UserId: this.state.uid})
+			if (login(this.state.attemptedLogin)) {
+				this.setState({loggedInUserId: this.state.attemptedLogin.uid});
 			}
-			this.setState({openLogin: false})
+			this.setState({loginOpen: false});
 		}
 
 		render() {
@@ -210,7 +215,7 @@ class LeftDrawer extends Component {
 					<BrowserRouter>
 						<div className={classes.root}>
 							<CssBaseline />
-							<Dialog open = {this.state.openLogin}
+							<Dialog open = {this.state.loginOpen}
 								onClose = {this.handleLoginClose}
 							>
 								<DialogContent>
@@ -256,7 +261,7 @@ class LeftDrawer extends Component {
 							<Drawer variant="persistent"
 								className = {classes.drawer}
 								classes={{paper: classes.drawerPaper,}}
-								open= {this.state.open}
+								open= {this.state.drawerOpen}
 							>
 								<MenuList>
 									<div className = {classes.toolbar} />
@@ -315,12 +320,12 @@ class LeftDrawer extends Component {
 
 							<div className = {classes.toolbar} />
 							<div className={classNames(classes.content, {
-								[classes.contentShift]: this.state.open,})}
+								[classes.contentShift]: this.state.drawerOpen,})}
 							>
 								<Route exact path="/" component = {Dashboard} />
 								<Route exact path="/schedule" component = {Schedule} />
 								<Route exact path="/calendar" component = {Calendar} />
-								<Route exact path="/map" render = {props => <Map userId={this.state.userId}/>} />
+								<Route exact path="/map" render = {_ => <Map userId={this.state.loggedInUserId}/>} />
 							</div>
 						</div>
 					</BrowserRouter>
