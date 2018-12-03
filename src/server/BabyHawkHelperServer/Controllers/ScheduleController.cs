@@ -45,36 +45,92 @@ namespace BabyHawkHelperServer.Controllers
             try {
                 using (var conn = new SqlConnection(connString)) {
                     conn.Open();
-                    var query = "select course.name, course.department, course.courseNumber, "
-                        + "course.courseSection, courseTimes.weekday, professor.name, "
-                        + "professor.phone, professor.email, officeHours.startTime, "
-                        + "officeHours.endTime, location.buildingName, location.roomNumber "
+                    var query = "select course.id, course.name, course.department, course.courseNumber, "
+                        + "course.courseSection, courseTimes.weekday, courseTimes.startTime, "
+                        + "courseTimes.endTime, professor.name, professor.phone, professor.email, "
+                        + "officeHours.startTime, officeHours.endTime, location.buildingName, "
+                        + "location.roomNumber "
                         + "from student, enroll, course, courseTimes, professor, officeHours, "
                         + "location "
                         + "where student.id = enroll.studentId and "
                         + "course.id = enroll.courseId and "
                         + "course.locationId = location.id and "
+                        + "course.professorId = professor.id and "
+                        + "courseTimes.courseId = course.id and "
+                        + "officeHours.professorId = professor.id and "
                         + "student.id = @id";
 
                     using (var cmd = new SqlCommand(query, conn)) {
                         cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
                         using (var reader = cmd.ExecuteReader()) {
-                            var locations = new List<Location>();
-                            while (reader.Read()) {
-                                var roomNumber = reader.GetString(0);
-                                var professor = reader.GetString(1);
-                                var startTime = reader.GetTimeSpan(2);
-                                var endTime = reader.GetTimeSpan(3);
-                                locations.Add(new Location {
-                                    RoomNumber = roomNumber,
-                                    Professor = professor,
+                            var courses = new List<Course>();
+
+                            getCourse:  while (reader.Read()) {
+                                var id_ = reader.GetInt32(0);
+                                foreach (var course in courses) {
+                                    if (course.Id == id_) {
+                                        var weekday = reader.GetString(5);
+                                        var officeHours_ = new OfficeHours(
+                                            reader.GetTimeSpan(11),
+                                            reader.GetTimeSpan(12)
+                                        );
+
+                                        if (!Array.Exists(course.Days, e => e == weekday)) {
+                                            var newDays = new string[1 + course.Days.Length];
+                                            for (int i = 0; i < course.Days.Length; i++)
+                                                newDays[i] = course.Days[i];
+                                            newDays[newDays.Length - 1] = weekday;
+                                            course.Days = newDays;
+                                        }
+                                        if (!Array.Exists(course.OfficeHours, e => e == officeHours_)) {
+                                            var newHours = new OfficeHours[1 + course.OfficeHours.Length];
+                                            for (int i = 0; i < course.OfficeHours.Length; i++)
+                                                newHours[i] = course.OfficeHours[i];
+                                            newHours[newHours.Length - 1] = officeHours_;
+                                            course.OfficeHours = newHours;
+                                        }
+
+                                        goto getCourse;
+                                    }                                        
+                                }
+
+                                var courseName = reader.GetString(1);
+                                var courseDepartment = reader.GetString(2);
+                                var courseNumber = reader.GetInt32(3);
+                                var courseSection = reader.GetInt32(4);
+                                var days = new string[] {
+                                    reader.GetString(5),
+                                };
+                                var startTime = reader.GetTimeSpan(6);
+                                var endTime = reader.GetTimeSpan(7);
+                                var professor = reader.GetString(8);
+                                var professorPhone = reader.GetString(9);
+                                var professorEmail = reader.GetString(10);
+                                var officeHours = new OfficeHours[] {
+                                    new OfficeHours(reader.GetTimeSpan(11), reader.GetTimeSpan(12)),
+                                };
+                                var buildingName = reader.GetString(13);
+                                var roomNumber = reader.GetString(14);
+                                courses.Add(new Course {
+                                    Id = id_,
+                                    CourseName = courseName,
+                                    Department = courseDepartment,
+                                    CourseNumber = courseNumber,
+                                    SectionNumber = courseSection,
                                     StartTime = startTime,
                                     EndTime = endTime,
+                                    Days = days,
+                                    Professor = professor,
+                                    Phone = professorPhone,
+                                    Email = professorEmail,
+                                    OfficeHours = officeHours,
+                                    Building = buildingName,
+                                    RoomNumber = roomNumber,
                                 });
                             }
-                            log.Info("[ScheduleController::GetAll] returning info for student "
-                                + id.ToString() + ": " + locations.ToString());
-                            return new Course[0];
+                            Debug.WriteLine("[ScheduleController::GetAll] returning info for student "
+                                + id.ToString() + ": " + courses.ToString());
+                            return courses.ToArray();
                         }
                     }
                 }
