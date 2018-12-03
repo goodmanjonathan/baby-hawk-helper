@@ -10,6 +10,7 @@ using System.Web.Http.Cors;
 using Newtonsoft.Json.Linq;
 
 using BabyHawkHelperServer.Models;
+using System.Diagnostics;
 
 namespace BabyHawkHelperServer.Controllers {
 #if DEBUG
@@ -75,8 +76,9 @@ namespace BabyHawkHelperServer.Controllers {
             try {
                 id = obj.id;
                 password = obj.password;
-            } catch (Exception) {
+            } catch (Exception ex) {
                 log.Error("[StudentController::Get] invalid request payload");
+                Debug.WriteLine(ex.StackTrace);
                 return Ok(new Student {
                     Valid = false,
                     Reason = 2,

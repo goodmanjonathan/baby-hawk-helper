@@ -102,15 +102,16 @@ const styles = theme => ({
 });
 
 function login(uid, pw) {
-	console.log("getting non-cached student");
+	console.log(`getting non-cached student: { uid: ${uid}, pw: ${pw} }`);
 
-	axios.post("/api/student/get", {
+	// contact the server..
+	axios.post("/api/student/get",
+		// with the userid and password
+		{
 			id: uid,
 			password: pw,
 		})
 		.then((response) => {
-			console.log("returned from getStudent: " + response);
-
 			let result;
 
 			if (response.data.Valid === false) {
@@ -125,35 +126,66 @@ function login(uid, pw) {
 				default:
 					reason = "unknown server error";
 				}
+				console.log("login failed: " + reason);
 
-				result = {
-					student: {
-						id: null,
-						passwd: null,
-						fname: null,
-						lname: null,
-					},
-					valid: false,
-					reason: reason,
-				};
+				result = null;
 			} else if (response.data.Valid === true) {
 				result = {
-					student: {
-						id: uid,
-						passwd: pw,
-						fname: response.data.FirstName,
-						lname: response.data.LastName,
-					},
-					valid: true,
-					reason: null
+					id: uid,
+					firstName: response.data.FirstName,
+					lastName: response.data.LastName,
 				};
 			}
 
-			return result.valid;
+			return result;
 		})
 		.catch((error) => {
 			console.log(error);
 		});
+}
+
+function LoginPrompt(handleLogin) {
+	return (
+		<div>
+			<DialogContent>
+				<TextField
+					autoFocus
+					margin="dense"
+					id="usernameInput"
+					label="Username"
+					fullWidth
+				/>
+				<TextField
+					margin="dense"
+					id="passwordInput"
+					label="Password"
+					fullWidth
+				/>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={handleLogin} color="primary">
+					Login
+				</Button>
+			</DialogActions>
+		</div>
+	);
+}
+
+function LogoutPrompt(userInfo, handleLogout) {
+	return (
+		<div>
+			<DialogContent>
+				<Typography>
+					Logged in as: {userInfo.firstName + " " + userInfo.lastName}
+				</Typography>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={handleLogout} color="primary">
+					Logout
+				</Button>
+			</DialogActions>
+		</div>
+	);
 }
 
 class LeftDrawer extends Component {
@@ -166,14 +198,10 @@ class LeftDrawer extends Component {
 				// 2 => Calendar
 				// 3 => Map
 				// 4 => Login
-				selectedIndex: 0,	
-				loggedInUserId: null,
+				selectedIndex: 0,
+				loggedInUser: null,
 				drawerOpen: true,
 				loginOpen: true,
-				attemptedLogin: {
-					uid: '',
-					pw: '',
-				},
 			};
 		}
 
@@ -193,20 +221,19 @@ class LeftDrawer extends Component {
 			this.setState({loginOpen: false});
 		};
 
-		handleUID = (e) => {
-			this.setState({attemptedLogin: { uid: e.target.value}});
-		};
-
-		handlePW = (e) => {
-			this.setState({attemptedLogin: { pw: e.target.value}});
-		};
-
 		handleLogin = () => {
-			if (login(this.state.attemptedLogin)) {
-				this.setState({loggedInUserId: this.state.attemptedLogin.uid});
+			let uid = document.getElementById("usernameInput").value;
+			let pw = document.getElementById("passwordInput").value;
+			let user = login(uid, pw);
+			if (user !== null) {
+				this.setState({loggedInUser: user});
 			}
 			this.setState({loginOpen: false});
-		}
+		};
+
+		handleLogout = () => {
+			this.setState({loggedInUser: null});
+		};
 
 		render() {
 				const { classes } = this.props;
@@ -218,28 +245,11 @@ class LeftDrawer extends Component {
 							<Dialog open = {this.state.loginOpen}
 								onClose = {this.handleLoginClose}
 							>
-								<DialogContent>
-									<TextField
-										autoFocus
-										margin="dense"
-										id="title"
-										label="Username"
-										fullWidth
-										onChange = {this.handleUID}
-									/>
-									<TextField
-										margin="dense"
-										id="desc"
-										label="Password"
-										fullWidth
-										onChange = {this.handlePW}
-									/>
-								</DialogContent>
-								<DialogActions>
-									<Button onClick={this.handleLogin} color="primary">
-										Login
-									</Button>
-								</DialogActions>
+								{
+									this.state.loggedInUser
+										? LogoutPrompt(this.loggedInUser, this.handleLogout)
+										: LoginPrompt(this.handleLogin)
+								}
 							</Dialog>
 							<AppBar position="fixed" className= {classes.appBar}>
 								<Toolbar>
