@@ -12,6 +12,7 @@ parser.parseURL(CORS_PROXY + 'https://events.uhcl.edu/rss/feed.php?l=7,20,1,39',
 	feed.items.forEach(function(entry) {
 		//console.log(entry.title + ':' + entry.link);
 		myEvents.push({
+			id: 0, // non-deletable event
 			start: new Date(entry.pubDate),
 			end: new Date(moment(entry.pubDate).add(2,"hours")),
 			title: entry.title.split(' - ')[1],

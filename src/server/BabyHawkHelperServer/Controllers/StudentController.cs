@@ -41,7 +41,7 @@ namespace BabyHawkHelperServer.Controllers {
                 firstName = obj.firstName;
                 lastName = obj.lastName;
             } catch (Exception) {
-                log.Error("[StudentController::Insert] invalid request payload");
+                Debug.WriteLine("[StudentController::Insert] invalid request payload");
                 return;
             }
 
@@ -63,7 +63,7 @@ namespace BabyHawkHelperServer.Controllers {
                     }
                 }
             } catch (SqlException ex) {
-                log.Error("[StudentController::Insert] failed to access database: " + ex.Message);
+                Debug.WriteLine("[StudentController::Insert] failed to access database: " + ex.Message);
                 throw ex;
             }
         }
@@ -77,7 +77,7 @@ namespace BabyHawkHelperServer.Controllers {
                 id = obj.id;
                 password = obj.password;
             } catch (Exception ex) {
-                log.Error("[StudentController::Get] invalid request payload");
+                Debug.WriteLine("[StudentController::Get] invalid request payload");
                 Debug.WriteLine(ex.StackTrace);
                 return Ok(new Student {
                     Valid = false,
@@ -105,7 +105,7 @@ namespace BabyHawkHelperServer.Controllers {
                             var passwordMatch = BCrypt.Net.BCrypt.Verify(password, hash);
 
                             if (!foundId | !passwordMatch) {
-                                log.Info("[StudentController::Get] authentication failed for student: "
+                                Debug.WriteLine("[StudentController::Get] authentication failed for student: "
                                     + id.ToString() + ", password: " + password);
                                 return Ok(new Student {
                                     Valid = false,
@@ -118,7 +118,7 @@ namespace BabyHawkHelperServer.Controllers {
                                     FirstName = reader.GetString(0),
                                     LastName = reader.GetString(2),
                                 };
-                                log.Info("[StudentController::Get] returning info for student "
+                                Debug.WriteLine("[StudentController::Get] returning info for student "
                                     + id.ToString() + ": " + result.ToString());
                                 return Ok(result);
                             }
@@ -126,7 +126,7 @@ namespace BabyHawkHelperServer.Controllers {
                     }
                 }
             } catch (Exception ex) {
-                log.Error("[StudentController::Get] failed to access database: " + ex.Message);
+                Debug.WriteLine("[StudentController::Get] failed to access database: " + ex.Message);
                 return Ok(new Student {
                     Valid = false,
                     Reason = 2,

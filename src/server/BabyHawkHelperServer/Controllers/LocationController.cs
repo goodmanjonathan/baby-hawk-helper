@@ -46,7 +46,7 @@ namespace BabyHawkHelperServer.Controllers {
                 using (var conn = new SqlConnection(connString)) {
                     conn.Open();
                     var query = "select distinct roomNumber, professor.name, "
-                        + "courseTimes.startTime, courseTimes.endTime "
+                        + "courseTimes.startTime, courseTimes.endTime, course.name "
                         + "from student, enroll, course, location, professor, courseTimes "
                         + "where student.id = enroll.studentId and "
                         + "course.id = enroll.courseId and "
@@ -64,14 +64,16 @@ namespace BabyHawkHelperServer.Controllers {
                                 var professor = reader.GetString(1);
                                 var startTime = reader.GetTimeSpan(2);
                                 var endTime = reader.GetTimeSpan(3);
+                                var courseName = reader.GetString(4);
                                 locations.Add(new Location {
                                     RoomNumber = roomNumber,
                                     Professor = professor,
                                     StartTime = startTime,
                                     EndTime = endTime,
+                                    CourseName = courseName,
                                 });
                             }
-                            log.Info("[LocationController::GetAll] returning info for student "
+                            Debug.WriteLine("[LocationController::GetAll] returning info for student "
                                 + id.ToString() + ": " + locations.ToString());
                             return locations.ToArray();
                         }

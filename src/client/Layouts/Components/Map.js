@@ -16,6 +16,8 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import FiberManualRecordIcon from '@material-ui/icons/fibermanualrecord';
 
+import { axios } from "../App";
+
 const mapCenter = [29.57766548841692,-95.10419867344351];
 const zoomLevel = 19;
 
@@ -62,13 +64,50 @@ const styles = theme => ({
 
 
 class App extends Component {
-	state = {
-		legend: false,
+	constructor(props) {
+		super(props);
+
+		let rooms = [];
+		let classes = {};
+		if (props.userId !== null) {
+			console.log("getting map data for user " + props.userId);
+			axios.post("api/location/getall", { userId: props.userId })
+				.then((response) => {
+					for (let datum in response) {
+						let roomNumber = datum.RoomNumber;
+						let professor = datum.Professor;
+						let startTime = datum.StartTime;
+						let endTime = datum.EndTime;
+						let courseName = datum.CourseName;
+
+						if (!rooms.includes(roomNumber))
+							rooms.push(roomNumber);
+						classes[roomNumber] = {
+							courseName,
+							professor,
+							startTime,
+							endTime
+						};
+					}
+				})
+				.catch((error) => console.log("error getting user map data: " + error));
+		} else {
+			console.log("skipping map data for non-logged in user");
+		}
+
+		this.state = {
+			loggedInUser: props.userId,
+			legend: false,
+			schedule: {
+				rooms,
+				classes,
+			},
+		};
 	}
 
 	onEachFeature = (feature, layer) => {
-		if (schedule.rooms.includes(feature.properties.Room)) {
-			layer.bindPopup(schedule.classes[feature.properties.Room]);
+		if (this.state.schedule.rooms.includes(feature.properties.Room)) {
+			layer.bindPopup(this.state.schedule.classes[feature.properties.Room]);
 		} else if (feature.properties.Faculty) {
 			layer.bindPopup(
 				"<b>" + feature.properties.Type + "</b><br/>Room: " + feature.properties.Room
@@ -109,10 +148,10 @@ class App extends Component {
 
 						</LayersControl.BaseLayer>
 						<LayersControl.Overlay checked name="Floor1">
-							<GeoJSON data = {firstFloor} style = {function(feature) {
+							<GeoJSON data = {firstFloor} style = {(feature) => {
 								switch (feature.properties.Type) {
 								case 'Classroom': {
-									return schedule.rooms.includes(feature.properties.Room)
+									return this.state.schedule.rooms.includes(feature.properties.Room)
 										? {color: "#ff0000"}
 										: {color: "#0078ad"};
 								}
@@ -128,10 +167,10 @@ class App extends Component {
 							/>
 						</LayersControl.Overlay>
 						<LayersControl.Overlay name="Floor2">
-							<GeoJSON data = {secondFloor} style = {function(feature) {
+							<GeoJSON data = {secondFloor} style = {(feature) => {
 								switch (feature.properties.Type) {
 								case 'Classroom': {
-									return schedule.rooms.includes(feature.properties.Room)
+									return this.state.schedule.rooms.includes(feature.properties.Room)
 										? {color: "#ff0000"}
 										: {color: "#0078ad"};
 								}

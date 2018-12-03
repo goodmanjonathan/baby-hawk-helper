@@ -15,18 +15,16 @@ import { axios } from "../App";
 
 import style from 'react-big-calendar/lib/css/react-big-calendar.css';
 
-
 const localizer = Calendar.momentLocalizer(moment);
 
 function EventAgenda({ event }) {
-return (
-	<Fragment>
-		<strong>{event.title}:  </strong>
-		{event.desc}
-	</Fragment>
-)
+	return (
+		<Fragment>
+			<strong>{event.title}:  </strong>
+			{event.desc}
+		</Fragment>
+	)
 }
-
 
 function Event({ event }) {
 	return (
@@ -35,8 +33,6 @@ function Event({ event }) {
 		</Fragment>
 	)
 }
-
-
 
 const styles = theme => ({
 	paperStyle: {
@@ -60,23 +56,35 @@ class App extends Component {
 		super(props);
 
 		let customEvents = [];
-		axios.post("api/event/getall", { userId: 1000002 })
-			.then((response) => {
-				for (let datum in response) {
-					let title = datum.Title;
-					let description = datum.Description;
-					let startTime = datum.StartTime;
-					let endTime = datum.EndTime;
+		if (props.userId !== null) {
+			axios.post("api/event/getall", { userId: props.userId })
+				.then((response) => {
+					console.log(`custom events for user ${props.userId}:`);
+					for (let datum in response) {
+						let id = datum.Id;
+						let title = datum.Title;
+						let description = datum.Description;
+						let startTime = datum.StartTime;
+						let endTime = datum.EndTime;
 
-					console.log(title, description, startTime, endTime);
-					//customEvents.push();
-				}
-			})
-			.catch((error) => {
-				console.log("failed to get custom events: " + error);
-			});
+						console.log(`Event: id=${id}, title=${title}, description=${description}, `
+							+ `startTime=${startTime}, endTime=${endTime}`);
+						customEvents.push({
+							id,
+							title,
+							desc: description,
+							start: startTime,
+							end: endTime,
+						});
+					}
+				})
+				.catch((error) => {
+					console.log("failed to get custom events: " + error);
+				});
+		}
 
 		this.state = {
+			loggedInStudent: props.userId,
 			events: myEvents,
 			customEvents,
 			open: false,
@@ -85,14 +93,13 @@ class App extends Component {
 			desc: 'placeholder',
 			start: new Date(),
 			end: new Date(),
-			selected:
-				{
-					start: new Date(),
-					end: new Date(),
-					title: 'placeholder',
-					desc: 'placeholder',
-				}
-
+			selected: {
+				id: 0,
+				start: new Date(),
+				end: new Date(),
+				title: 'placeholder',
+				desc: 'placeholder',
+			}
 		};
 	}
 
@@ -114,17 +121,30 @@ class App extends Component {
 
 	handleCustomClose = () => {
 		this.setState({newOpen: false});
-		this.setState({
-				customEvents: [
-					...this.state.customEvents,
-					{
-						start: this.state.cStart,
-						end: this.state.cEnd,
-						title: this.state.title,
-						desc: this.state.desc,
-					},
-				],
-			});
+
+		if (this.state.userId !== null) {
+			axios.post("api/event/insert", {
+					studentId: this.state.loggedInStudent,
+					title: this.state.title,
+					description: this.state.desc,
+					startTime: this.state.cStart,
+					endTime: this.state.cEnd,
+				})
+				.catch((error) => console.log("error inserting custom event: " + error));
+
+			this.setState({
+					customEvents: [
+						...this.state.customEvents,
+						{
+							id: 0, // FIXME: handle event deletion
+							start: this.state.cStart,
+							end: this.state.cEnd,
+							title: this.state.title,
+							desc: this.state.desc,
+						},
+					],
+				});
+		}
 	};
 
 	handleTitle = (e) => {
@@ -151,7 +171,6 @@ class App extends Component {
 					views = {['month','day']}
 					components={{
 						event: Event,
-
 					}}
 					onSelectEvent = {this.handlePopUp}
 					onSelectSlot = {this.handleCustomDialog}

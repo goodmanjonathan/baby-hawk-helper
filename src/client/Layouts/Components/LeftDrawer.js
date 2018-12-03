@@ -223,9 +223,7 @@ class LeftDrawer extends Component {
 			let uid = document.getElementById("usernameInput").value;
 			let pw = document.getElementById("passwordInput").value;
 			let user = login(uid, pw);
-			if (user !== null) {
-				this.setState({loggedInUser: user});
-			}
+			this.setState({loggedInUser: user});
 			this.setState({loginOpen: false});
 		};
 
@@ -332,8 +330,8 @@ class LeftDrawer extends Component {
 							>
 								<Route exact path="/" component = {Dashboard} />
 								<Route exact path="/schedule" component = {Schedule} />
-								<Route exact path="/calendar" component = {Calendar} />
-								<Route exact path="/map" render = {_ => <Map userId={this.state.loggedInUserId}/>} />
+								<Route exact path="/calendar" render = {_ => <Calendar userId={this.state.loggedInUser} />} />
+								<Route exact path="/map" render = {_ => <Map userId={this.state.loggedInUser} />} />
 							</div>
 						</div>
 					</BrowserRouter>
