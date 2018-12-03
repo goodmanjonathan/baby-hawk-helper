@@ -2044,7 +2044,7 @@ const firstFloor ={
 
 				"Type": "Office",
 				"Room": "171",
-				"Professor": "Dr. Boetticher",
+				"Faculty": "Dr. Boetticher",
 				"Email": "Boetticher@uhcl.edu"
 			},
 			"geometry": {
@@ -2126,7 +2126,7 @@ const firstFloor ={
 
 				"Type": "Office",
 				"Room": "169",
-				"Professor": "Dr. Abukmail",
+				"Faculty": "Dr. Abukmail",
 				"Email": "Abukmail@uhcl.edu"
 			},
 			"geometry": {
@@ -2167,7 +2167,7 @@ const firstFloor ={
 
 				"Type": "Office",
 				"Room": "168",
-				"Professor": "Dr. Al-Mubaid",
+				"Faculty": "Dr. Al-Mubaid",
 				"Email": "Hisham@uhcl.edu"
 			},
 			"geometry": {
@@ -2288,7 +2288,7 @@ const firstFloor ={
 
 				"Type": "Office",
 				"Room": "165",
-				"Professor": "Dr. Abeysekera",
+				"Faculty": "Dr. Abeysekera",
 				"Email": "Abeysekera@uhcl.edu"
 			},
 			"geometry": {
