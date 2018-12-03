@@ -1,0 +1,111 @@
+@-webkit-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@-moz-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@-o-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@-ms-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+
+.animateDash{
+    margin-right: 5px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+	color: #0078ad;
+}
+.animateDash:hover{
+	display: inline-block;
+    position: relative;
+    -moz-animation: bounce 0.5s infinite linear;
+    -o-animation: bounce 0.5s infinite linear;
+    -webkit-animation: bounce 0.5s infinite linear;
+    animation: bounce 0.5s infinite linear;
+	transform: rotate(360deg);
+	
+}
+
+.animateClock{
+	margin-right: 5px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+	color: #0078ad;
+}
+.animateClock:hover{
+	display: inline-block;
+    position: relative;
+    -moz-animation: bounce 0.5s infinite linear;
+    -o-animation: bounce 0.5s infinite linear;
+    -webkit-animation: bounce 0.5s infinite linear;
+    animation: bounce 0.5s infinite linear;
+	transform: rotate(720deg);
+}
+
+.animateCal{
+    margin-right: 5px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+	color: #0078ad;
+}
+.animateCal:hover{
+	display: inline-block;
+    position: relative;
+    -moz-animation: bounce 0.5s infinite linear;
+    -o-animation: bounce 0.5s infinite linear;
+    -webkit-animation: bounce 0.5s infinite linear;
+    animation: bounce 0.5s infinite linear;
+	transform: rotate(360deg);
+}
+
+.animateMap{
+    margin-right: 5px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+	color: #0078ad;
+}
+.animateMap:hover{
+	display: inline-block;
+    position: relative;
+    -moz-animation: bounce 0.5s infinite linear;
+    -o-animation: bounce 0.5s infinite linear;
+    -webkit-animation: bounce 0.5s infinite linear;
+    animation: bounce 0.5s infinite linear;
+	transform: rotate(360deg);
+}
+
+.animateSetting{
+    margin-right: 5px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+	color: #0078ad;
+}
+.animateSetting:hover{
+	display: inline-block;
+    position: relative;
+    -moz-animation: bounce 0.5s infinite linear;
+    -o-animation: bounce 0.5s infinite linear;
+    -webkit-animation: bounce 0.5s infinite linear;
+    animation: bounce 0.5s infinite linear;
+    transform: rotate(720deg);
+}

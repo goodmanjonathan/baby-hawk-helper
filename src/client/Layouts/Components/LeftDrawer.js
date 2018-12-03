@@ -29,6 +29,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { axios } from "../App";
+import './icon.css';
 
 import Dashboard from "./Dashboard";
 import Schedule from "./Schedule";
@@ -280,7 +281,7 @@ class LeftDrawer extends Component {
 												className = {classes.menuItem}
 												onClick={event => this.handleListItemClick(event,0)}
 										>
-											<ListItemIcon className={classes.icon}>
+											<ListItemIcon className={classes.icon} class="animateDash"> 
 												<DashboardIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -290,7 +291,7 @@ class LeftDrawer extends Component {
 												className= {classes.menuItem}
 												onClick={event => this.handleListItemClick(event,1)}
 										>
-											<ListItemIcon className = {classes.icon}>
+											<ListItemIcon className = {classes.icon}  class="animateClock">
 												<ScheduleIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -300,7 +301,7 @@ class LeftDrawer extends Component {
 												className={classes.menuItem}
 												onClick={event => this.handleListItemClick(event,2)}
 										>
-											<ListItemIcon className={classes.icon}>
+											<ListItemIcon className={classes.icon} class="animateCal">
 												<TodayIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -310,7 +311,7 @@ class LeftDrawer extends Component {
 												className={classes.menuItem}
 												onClick={event => this.handleListItemClick(event,3)}
 										>
-											<ListItemIcon className={classes.icon}>
+											<ListItemIcon className={classes.icon} class="animateMap">
 												<MapIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -321,7 +322,7 @@ class LeftDrawer extends Component {
 											className={classes.menuItem}
 											onClick={event => this.handleListItemClick(event,4)}
 									>
-										<ListItemIcon className={classes.icon}>
+										<ListItemIcon className={classes.icon} class="animateSetting">
 											<SettingsIcon />
 										</ListItemIcon>
 									</MenuItem>
