@@ -20,8 +20,8 @@ const styles = theme => ({
     margin: theme.spacing.unit,
 		height: 40,
 		width: 40,
-		minHeight: 0,
-		minWidth: 0,
+		minHeight: 40,
+		minWidth: 40,
   },
 	gridList: {
 		height: '100'
