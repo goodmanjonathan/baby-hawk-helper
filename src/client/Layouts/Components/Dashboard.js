@@ -8,13 +8,17 @@ import { Timeline } from 'react-twitter-widgets'
 import InstagramEmbed from 'react-instagram-embed'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
 
 const styles = theme => ({
 	root: {
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.paper,
-		maxWidth: 800
 	},
+	Button: {
+    margin: theme.spacing.unit,
+  },
 	gridList: {
 		height: '100'
 	},
@@ -27,47 +31,58 @@ function Dashboard(props) {
 	const { classes } = props;
 
 	return (
-		<Grid container justify = 'center'>
-			<Paper className = {classes.root}>
-				<List>
-					<ListItem >
-							<ListSubheader style={{textAlign: 'right'}} component="div"><p></p>
-							<a href="http://www.instagram.com/uhclearlake"><img src={require('./images/iconi.png')} width="40" height="40" /></a>
-							<span>  </span><a href="https://twitter.com/UHClearLake"><img src={require('./images/icont.png')} width="40" height="40" /></a>
-							<span>  </span><a href="https://www.facebook.com/UHClearLake/"><img src={require('./images/iconf.png')} width="40" height="40" /></a>
-							<span>  </span><a href="https://www.youtube.com/user/uhclearlake" ><img src={require('./images/icony.png')} width="40" height="40" /></a>
-
-							</ListSubheader>
-						</ListItem>
-						<Paper>
-							<ListItem>
-								<Grid container justify = 'center'>
-									<Timeline
-												dataSource={{
-													sourceType: 'profile',
-													screenName: 'UHClearLake'
-												}}
-												options={{
-													username: 'UHClearLake',
-													height: '500',
-													width: '95vh'
-												}}
-												onLoad={() => console.log('Timeline is loaded!')}
-											/>
-								</Grid>
-							</ListItem>
-						</Paper>
-						<Paper>
-							<ListItem>
-								<Grid container justify = 'center'>
-									<InstagramEmbed
-										url='https://www.instagram.com/p/BqftGKEgS7I/' />
-								</Grid>
-							</ListItem>
-						</Paper>
-					</List>
-				</Paper>
-			</Grid>
+		<Grid container justify = 'center' spacing = {24}>
+				<Grid item xs={12}>
+					<Paper>
+						<div style = {{textAlign: "center"}}>
+							<a href="http://www.instagram.com/uhclearlake">
+								<Button mini = {true} className={classes.Button} >
+									<img src={require('./images/iconi.png')} width="40" height="40" />
+								</Button>
+							</a>
+							<a href="https://twitter.com/UHClearLake">
+								<Button className={classes.Button}>
+									<img src={require('./images/icont.png')} width="40" height="40" />
+								</Button>
+							</a>
+							<a href="https://www.facebook.com/UHClearLake/">
+								<Button className={classes.Button}>
+									<img src={require('./images/iconf.png')} width="40" height="40" />
+								</Button>
+							</a>
+							<a href="https://www.youtube.com/user/uhclearlake" >
+								<Button className={classes.Button}>
+									<img src={require('./images/icony.png')} width="40" height="40" />
+								</Button>
+							</a>
+						</div>
+					</Paper>
+				</Grid>
+				<Grid item xs ={12} md={6} style = {{textAlign: 'center'}}>
+					<Paper>
+						<Timeline
+									dataSource={{
+										sourceType: 'profile',
+										screenName: 'UHClearLake'
+									}}
+									options={{
+										username: 'UHClearLake',
+										height: '926',
+										width: '95vh'
+									}}
+									onLoad={() => console.log('Timeline is loaded!')}
+						/>
+					</Paper>
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<Paper>
+						<div style={{margin: 'auto'}}>
+							<InstagramEmbed
+							url='https://www.instagram.com/p/BqftGKEgS7I/' />
+						</div>
+					</Paper>
+				</Grid>
+		</Grid>
 	);
 }
 
