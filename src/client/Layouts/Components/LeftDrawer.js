@@ -68,9 +68,6 @@ const styles = theme => ({
 		},
 	},
 	primary: {},
-	icon: {
-		color: theme.palette.secondary.main,
-	},
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing.unit,
@@ -281,7 +278,7 @@ class LeftDrawer extends Component {
 												className = {classes.menuItem}
 												onClick={event => this.handleListItemClick(event,0)}
 										>
-											<ListItemIcon className={classes.icon} class="animateDash"> 
+											<ListItemIcon className="animateDash"> 
 												<DashboardIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -291,7 +288,7 @@ class LeftDrawer extends Component {
 												className= {classes.menuItem}
 												onClick={event => this.handleListItemClick(event,1)}
 										>
-											<ListItemIcon className = {classes.icon}  class="animateClock">
+											<ListItemIcon className="animateClock">
 												<ScheduleIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -301,7 +298,7 @@ class LeftDrawer extends Component {
 												className={classes.menuItem}
 												onClick={event => this.handleListItemClick(event,2)}
 										>
-											<ListItemIcon className={classes.icon} class="animateCal">
+											<ListItemIcon className="animateCal">
 												<TodayIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -311,7 +308,7 @@ class LeftDrawer extends Component {
 												className={classes.menuItem}
 												onClick={event => this.handleListItemClick(event,3)}
 										>
-											<ListItemIcon className={classes.icon} class="animateMap">
+											<ListItemIcon className="animateMap">
 												<MapIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -322,7 +319,7 @@ class LeftDrawer extends Component {
 											className={classes.menuItem}
 											onClick={event => this.handleListItemClick(event,4)}
 									>
-										<ListItemIcon className={classes.icon} class="animateSetting">
+										<ListItemIcon className="animateSetting">
 											<SettingsIcon />
 										</ListItemIcon>
 									</MenuItem>
