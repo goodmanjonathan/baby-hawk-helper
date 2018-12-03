@@ -102,68 +102,60 @@ const styles = theme => ({
 	},
 });
 
-function Login(uid, pw){
-						console.log("getting non-cached student");
+function Login(uid, pw) {
+	console.log("getting non-cached student");
 
+	axios.post("/api/student/get", {
+			id: uid,
+			password: pw,
+		})
+		.then((response) => {
+			console.log("returned from getStudent: " + response);
 
-						axios.post("/api/student/get", {
-										id: uid,
-										password: pw,
-								})
-								.then((response) => {
-										console.log("returned from getStudent: " + response);
+			let result;
 
-										let result;
+			if (response.data.Valid === false) {
+				let reason;
+				switch (response.data.Reason) {
+				case 1:
+					reason = "authentication error";
+					break;
+				case 2:
+					reason = "db connection error: " + response.data.ReasonEx;
+					break;
+				default:
+					reason = "unknown server error";
+				}
 
-										if (response.data.Valid === false) {
-												let reason;
-												switch (response.data.Reason) {
-												case 1:
-														reason = "authentication error";
-														break;
-												case 2:
-														reason = "db connection error: " + response.data.ReasonEx;
-														break;
-												default:
-														reason = "unknown server error";
-												}
+				result = {
+					student: {
+						id: null,
+						passwd: null,
+						fname: null,
+						lname: null,
+					},
+					valid: false,
+					reason: reason,
+				};
+			} else if (response.data.Valid === true) {
+				result = {
+					student: {
+						id: uid,
+						passwd: pw,
+						fname: response.data.FirstName,
+						lname: response.data.LastName,
+					},
+					valid: true,
+					reason: null
+				};
+			}
 
-												result = {
-														student: {
-																id: null,
-																passwd: null,
-																fname: null,
-																lname: null,
-														},
-														valid: false,
-														reason: reason,
-												};
-										} else if (response.data.Valid === true) {
-												result = {
-														student: {
-																id: uid,
-																passwd: pw,
-																fname: response.data.FirstName,
-																lname: response.data.LastName,
-														},
-														valid: true,
-														reason: null
-												};
-										}
-
-										if (result.valid) {
-												console.log("creating App with userId: " + result.student.userId);
-												return(true);
-										}
-										else{
-											return(false);
-										}
-								})
-								.catch((error) => {
-										console.log(error);
-								});
-		}
-
+			return result.valid;
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+}
 
 class LeftDrawer extends Component {
 		constructor(props) {
