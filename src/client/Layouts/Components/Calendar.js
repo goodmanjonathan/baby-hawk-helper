@@ -92,7 +92,7 @@ class App extends Component {
 	handleCustomClose = () => {
 		this.setState({newOpen: false});
 		console.log(this.state.loggedInStudent);
-		if (this.state.loggedInStudent !== null) {
+		if (this.state.loggedInStudent !== -1) {
 			axios.post("api/event/insert", {
 					studentId: this.state.loggedInStudent,
 					title: this.state.title,
@@ -126,7 +126,7 @@ class App extends Component {
 	};
 
 	componentDidMount = () => {
-		if (this.state.loggedInStudent !== null) {
+		if (this.state.loggedInStudent !== -1) {
 			axios.post("api/event/getall", { studentId: this.state.loggedInStudent })
 				.then((response) => {
 					let customEvents = [];
@@ -174,7 +174,7 @@ class App extends Component {
 						event: Event,
 					}}
 					onSelectEvent = {this.handlePopUp}
-					onSelectSlot = {this.handleCustomDialog}
+					onSelectSlot = {()=>{if(this.state.loggedInUser != -1) {this.handleCustomDialog()}}}
 				/>
 				<Dialog open = {this.state.open}
 					onClose = {this.handleClose}

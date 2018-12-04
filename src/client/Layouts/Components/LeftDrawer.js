@@ -159,7 +159,7 @@ class LeftDrawer extends Component {
 				// 3 => Map
 				// 4 => Login
 				selectedIndex: 0,
-				loggedInUser: null,
+				loggedInUser: {id: -1},
 				drawerOpen: true,
 				loginOpen: true,
 				schedule: [],
@@ -270,7 +270,7 @@ class LeftDrawer extends Component {
 		};
 
 		handleLogout = () => {
-			this.setState({loggedInUser: null});
+			this.setState({loggedInUser: {id: -1}});
 		};
 
 		componentDidUpdate = () => {
@@ -288,7 +288,7 @@ class LeftDrawer extends Component {
 							>
 								{
 
-									this.state.loggedInUser
+									this.state.loggedInUser.id != -1
 										? LogoutPrompt(this.state.loggedInUser, this.handleLogout)
 										: LoginPrompt(this.handleLogin)
 								}
