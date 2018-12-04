@@ -174,7 +174,7 @@ class App extends Component {
 						event: Event,
 					}}
 					onSelectEvent = {this.handlePopUp}
-					onSelectSlot = {()=>{if(this.state.loggedInUser != -1) {this.handleCustomDialog()}}}
+					onSelectSlot = {this.handleCustomDialog}
 				/>
 				<Dialog open = {this.state.open}
 					onClose = {this.handleClose}
