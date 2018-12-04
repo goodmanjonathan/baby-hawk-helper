@@ -102,48 +102,6 @@ const styles = theme => ({
 	}
 });
 
-function login(uid, pw) {
-	console.log(`getting non-cached student: { uid: ${uid}, pw: ${pw} }`);
-
-	// contact the server..
-	axios.post("/api/student/get",
-		// with the userid and password
-		{
-			id: uid,
-			password: pw,
-		})
-		.then((response) => {
-			let result;
-
-			if (response.data.Valid === false) {
-				let reason;
-				switch (response.data.Reason) {
-				case 1:
-					reason = "authentication error";
-					break;
-				case 2:
-					reason = "db connection error: " + response.data.ReasonEx;
-					break;
-				default:
-					reason = "unknown server error";
-				}
-				console.log("login failed: " + reason);
-
-				result = null;
-			} else if (response.data.Valid === true) {
-				result = {
-					id: uid,
-					firstName: response.data.FirstName,
-					lastName: response.data.LastName,
-				};
-			}
-
-			return result;
-		})
-		.catch((error) => {
-			console.log(error);
-		});
-}
 
 function LoginPrompt(handleLogin) {
 	return (
@@ -206,6 +164,50 @@ class LeftDrawer extends Component {
 			};
 		}
 
+		login = (uid, pw) => {
+			console.log(`getting non-cached student: { uid: ${uid}, pw: ${pw} }`);
+
+			// contact the server..
+			axios.post("/api/student/get",
+				// with the userid and password
+				{
+					id: uid,
+					password: pw,
+				})
+				.then((response) => {
+					let result;
+
+					if (response.data.Valid === false) {
+						let reason;
+						switch (response.data.Reason) {
+						case 1:
+							reason = "authentication error";
+							break;
+						case 2:
+							reason = "db connection error: " + response.data.ReasonEx;
+							break;
+						default:
+							reason = "unknown server error";
+						}
+						console.log("login failed: " + reason);
+
+						result = null;
+					} else if (response.data.Valid === true) {
+						result = {
+							id: uid,
+							firstName: response.data.FirstName,
+							lastName: response.data.LastName,
+						};
+						this.setState({loggedInUser: result});
+					}
+					console.log(result);
+					return result;
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+
 		handleListItemClick = (event, index) => {
 			if (index === 4) {
 				this.setState({loginOpen: true});
@@ -225,8 +227,8 @@ class LeftDrawer extends Component {
 		handleLogin = () => {
 			let uid = document.getElementById("usernameInput").value;
 			let pw = document.getElementById("passwordInput").value;
-			let user = login(uid, pw);
-			this.setState({loggedInUser: user});
+			let user = this.login(uid, pw);
+
 			this.setState({loginOpen: false});
 		};
 
@@ -236,7 +238,6 @@ class LeftDrawer extends Component {
 
 		render() {
 				const { classes } = this.props;
-
 				return (
 					<BrowserRouter>
 						<div className={classes.root}>
@@ -245,8 +246,9 @@ class LeftDrawer extends Component {
 								onClose = {this.handleLoginClose}
 							>
 								{
+
 									this.state.loggedInUser
-										? LogoutPrompt(this.loggedInUser, this.handleLogout)
+										? LogoutPrompt(this.state.loggedInUser, this.handleLogout)
 										: LoginPrompt(this.handleLogin)
 								}
 							</Dialog>
@@ -331,10 +333,11 @@ class LeftDrawer extends Component {
 							<div className={classNames(classes.content, {
 								[classes.contentShift]: this.state.drawerOpen,})}
 							>
+								{console.log(this.state.loggedInUser)}
 								<Route exact path="/" component = {Dashboard} />
-								<Route exact path="/schedule" component = {Schedule} />
-								<Route exact path="/calendar" render = {_ => <Calendar userId={this.state.loggedInUser} />} />
-								<Route exact path="/map" render = {_ => <Map userId={this.state.loggedInUser} />} />
+								<Route exact path="/schedule" render = {_ => <Schedule userId={this.state.loggedInUser.id}/>} />
+								<Route exact path="/calendar" render = {_ => <Calendar userId={this.state.loggedInUser.id} />} />
+								<Route exact path="/map" render = {_ => <Map userId={this.state.loggedInUser.id} />} />
 							</div>
 						</div>
 					</BrowserRouter>

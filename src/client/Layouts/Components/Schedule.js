@@ -9,12 +9,16 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Paper from "@material-ui/core/Paper";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import CardHeader from '@material-ui/core/CardHeader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 
 import { axios } from "../App";
 
 const styles = theme => ({
 	card: {
-        minWidth: 275,
+        minWidth: 600,
 	},
     heading: {
         fontSize: 16,
@@ -31,7 +35,7 @@ const styles = theme => ({
 
     }
 });
-
+/*
 function Course(props) {
     const { courseInfo } = props;
     const sectionNumber = courseInfo.SectionNumber;
@@ -64,41 +68,86 @@ function Course(props) {
             </CardContent>
         </Card>
     );
-}
+} */
 
 class Schedule extends React.Component {
+
     constructor(props) {
         super(props);
+				/*this.mycourses = [];
 
-        let courses = [];
-        axios.post("api/schedule/getall", { userId: 1000000/*props.userId*/ })
+        axios.post("api/schedule/getall", { userId: 1000000/*props.userId })
             .then((response) => {
                 for (let course of response.data) {
-                    courses.push(course);
+                    this.mycourses.push(course);
                 }
             })
             .catch((error) => console.log("error getting schedule: " + error));
-
+						*/
         this.state = {
-            userId: props.userId,
-            courses: courses,
+            courses: [],
+						userId: props.userId,
         };
     }
 
+
+		componentDidMount = () => {
+			this.mycourses = [];
+			console.log(this.state.userId)
+			axios.post("api/schedule/getall", { userId: this.state.userId })
+					.then((response) => {
+							for (let course of response.data) {
+									this.mycourses.push(course);
+							}
+							this.setState({courses: this.mycourses})
+					})
+					.catch((error) => console.log("error getting schedule: " + error));
+
+
+			console.log(this.state.courses)
+		}
+
     injectCourse = (courseInfo) => {
+			const sectionNumber = courseInfo.SectionNumber;
+			const days = courseInfo.Days.join("");
+			const classes = this.props;
         return (
-            <div>
-                <Course courseInfo={courseInfo}/>
-                <br/>
-            </div>
+            <ListItem>
+							<Card style={{flexGrow:1 , maxWidth: 400}} elevation={1}>
+									<CardHeader
+										title = {courseInfo.CourseName}
+									/>
+									<CardContent>
+											<ExpansionPanel>
+													<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+															<Typography className={styles.body}>
+																	{courseInfo.Department} {courseInfo.CourseNumber}.{sectionNumber}<br/>
+																	{courseInfo.Professor}<br/>
+																	{days} {courseInfo.StartTime}-{courseInfo.EndTime}<br/>
+																	{courseInfo.Building} {courseInfo.RoomNumber}
+															</Typography>
+													</ExpansionPanelSummary>
+
+													<ExpansionPanelDetails>
+															<Typography>
+																	{courseInfo.Phone}<br/>
+																	{courseInfo.Email}
+															</Typography>
+													</ExpansionPanelDetails>
+											</ExpansionPanel>
+									</CardContent>
+							</Card>
+            </ListItem>
         );
     };
 
     render() {
+			const { styles } = this.props;
+			console.log(this.state.courses)
         return (
-            <div>
+            <List>
                 {this.state.courses.map((c) => this.injectCourse(c))}
-            </div>
+            </List>
         );
     }
 }

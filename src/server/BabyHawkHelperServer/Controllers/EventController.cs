@@ -14,6 +14,7 @@ using BabyHawkHelperServer.Models;
 
 namespace BabyHawkHelperServer.Controllers
 {
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventController: ApiController {
         private static readonly string profile =
 #if DEBUG
