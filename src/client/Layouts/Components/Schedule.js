@@ -47,7 +47,7 @@ class Schedule extends React.Component {
         this.mycourses = [];
         console.log(this.state.userId);
 
-        if (this.state.userId !== null) { 
+        if (this.state.userId !== null) {
             axios.post("api/schedule/getall", { userId: this.state.userId })
                 .then((response) => {
                     for (let course of response.data) {
@@ -99,7 +99,7 @@ class Schedule extends React.Component {
         console.log("courses: " + this.state.courses);
         console.log("userId: " + this.state.userId);
 
-        if (this.state.userId === null) {
+        if (this.state.userId === -1) {
             return (
                 <div>
                     <Typography>
