@@ -13,9 +13,6 @@ using BabyHawkHelperServer.Models;
 using System.Diagnostics;
 
 namespace BabyHawkHelperServer.Controllers {
-#if DEBUG
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-#endif
     public class LocationController: ApiController {
         private static readonly string profile =
 #if DEBUG
