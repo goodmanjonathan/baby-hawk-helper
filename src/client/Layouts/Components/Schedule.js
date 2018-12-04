@@ -56,12 +56,12 @@ class Schedule extends React.Component {
             .catch((error) => console.log("error getting schedule: " + error));
 
         console.log(this.state.courses);
-    }
+    };
 
-    injectCourse = (courseInfo) => {
+    courseCardFromInfo = (courseInfo) => {
         const sectionNumber = courseInfo.SectionNumber;
         const days = courseInfo.Days.join("");
-        const classes = this.props;
+
         return (
             <ListItem>
                 <Card style={{flexGrow:1 , maxWidth: 400}} elevation={1}>
@@ -93,11 +93,10 @@ class Schedule extends React.Component {
     };
 
     render() {
-        const { styles } = this.props;
-        console.log(this.state.courses)
+        console.log(this.state.courses);
         return (
             <List>
-                {this.state.courses.map((c) => this.injectCourse(c))}
+                {this.state.courses.map(this.courseCardFromInfo)}
             </List>
         );
     }
