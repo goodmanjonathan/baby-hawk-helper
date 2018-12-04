@@ -20,16 +20,9 @@ import { axios } from "../App";
 
 const mapCenter = [29.57766548841692,-95.10419867344351];
 const zoomLevel = 19;
-
+let flag = false;
 let schedule = {
-	rooms: [
-	],
-	classes: {
-		'119B' : 'Class 1',
-		'140' : 'Class 2',
-		'216' : 'Class 3',
-	}
-}
+};
 
 const styles = theme => ({
 	avatar: {
@@ -64,54 +57,28 @@ const styles = theme => ({
 
 
 class App extends Component {
+
 	constructor(props) {
 		super(props);
-
-		let rooms = [];
-		let classes = {};
-		if (props.userId !== null) {
-			console.log("getting map data for user " + props.userId);
-			axios.post("api/location/getall", { userId: props.userId })
-				.then((response) => {
-					for (let datum in response) {
-						let roomNumber = datum.RoomNumber;
-						let professor = datum.Professor;
-						let startTime = datum.StartTime;
-						let endTime = datum.EndTime;
-						let courseName = datum.CourseName;
-
-						if (!rooms.includes(roomNumber))
-							rooms.push(roomNumber);
-						classes[roomNumber] = {
-							courseName,
-							professor,
-							startTime,
-							endTime
-						};
-					}
-				})
-				.catch((error) => console.log("error getting user map data: " + error));
-		} else {
-			console.log("skipping map data for non-logged in user");
-		}
-
-		this.state = {
-			loggedInUser: props.userId,
-			legend: false,
-			schedule: {
-				rooms,
-				classes,
-			},
-		};
-	}
+			this.state = {
+				loggedInUser: this.props.userId,
+				legend: false,
+				schedule: [],
+				Info: {},
+			}
+	};
 
 	onEachFeature = (feature, layer) => {
-		if (this.state.schedule.rooms.includes(feature.properties.Room)) {
-			layer.bindPopup(this.state.schedule.classes[feature.properties.Room]);
+		if (this.hasRoom(feature.properties.Room)) {
+			layer.bindPopup(this.props.classInfo[feature.properties.Room]);
 		} else if (feature.properties.Faculty) {
 			layer.bindPopup(
 				"<b>" + feature.properties.Type + "</b><br/>Room: " + feature.properties.Room
 					+ "<br/>" + feature.properties.Faculty + "<br/>" + feature.properties.Email
+			);
+		} else if(feature.properties.Room == '205') {
+			layer.bindPopup(
+				"<b>Delta Open Lab " + feature.properties.Room + "</b><br/>Monday-Thursday: 8 a.m. - 12 a.m.<br/>Friday-Saturday: 8 a.m. - 5 p.m.<br/>Sunday: 1 p.m. - 5 p.m."
 			);
 		} else {
 			layer.bindPopup(
@@ -119,6 +86,28 @@ class App extends Component {
 			);
 		}
 	};
+
+
+	hasRoom = (r) => {
+		for (let c of this.props.schedule) {
+			if(r == c[0]){
+				return(true);
+			}
+		}
+		return(false);
+	}
+
+	getClassesFromRoom = (r) => {
+		let classes = [];
+		for(let c of this.props.schedule) {
+			if(r == c[0]) {
+				classes.push([c]);
+			}
+		}
+		return(c);
+	}
+
+
 
 	handleLegend = () => {
 		this.setState({legend: true});
@@ -128,11 +117,12 @@ class App extends Component {
 		this.setState({legend: false});
 	};
 
+
 	render() {
 		const { classes } = this.props;
 		const attribution = "&copy; "
 			+ "<a href=http://osm.org/copyright>OpenStreetMap</a>";
-
+		console.log(this.props);
 		return (
 			<div>
 				<Map
@@ -151,7 +141,7 @@ class App extends Component {
 							<GeoJSON data = {firstFloor} style = {(feature) => {
 								switch (feature.properties.Type) {
 								case 'Classroom': {
-									return this.state.schedule.rooms.includes(feature.properties.Room)
+									return this.hasRoom(feature.properties.Room)
 										? {color: "#ff0000"}
 										: {color: "#0078ad"};
 								}
@@ -170,7 +160,7 @@ class App extends Component {
 							<GeoJSON data = {secondFloor} style = {(feature) => {
 								switch (feature.properties.Type) {
 								case 'Classroom': {
-									return this.state.schedule.rooms.includes(feature.properties.Room)
+									return this.hasRoom(feature.properties.Room)
 										? {color: "#ff0000"}
 										: {color: "#0078ad"};
 								}
@@ -240,4 +230,5 @@ class App extends Component {
 		);
 	}
 }
+
 export default withStyles(styles)(App);

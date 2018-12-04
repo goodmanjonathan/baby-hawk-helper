@@ -38,6 +38,7 @@ import Map from "./Map";
 
 const pages = ["Dashboard", "Schedule", "Calendar", "Map"];
 const drawerWidth = 60;
+let schedule = {};
 
 const styles = theme => ({
 	root: {
@@ -161,6 +162,7 @@ class LeftDrawer extends Component {
 				loggedInUser: null,
 				drawerOpen: true,
 				loginOpen: true,
+				schedule: [],
 			};
 		}
 
@@ -199,6 +201,41 @@ class LeftDrawer extends Component {
 							lastName: response.data.LastName,
 						};
 						this.setState({loggedInUser: result});
+						this.classData = [];
+						schedule = [];
+						if (this.props.userId !== null) {
+							console.log("getting map data for user " + this.state.loggedInUser.id);
+							axios.post("api/location/getall", { userId: this.state.loggedInUser.id })
+								.then((response) => {
+									for (let datum of response.data) {
+										console.log(datum);
+										let roomNumber = datum.RoomNumber;
+										let professor = datum.Professor;
+										let startTime = datum.StartTime;
+										let endTime = datum.EndTime;
+										let courseName = datum.CourseName;
+										this.classData.push([roomNumber, professor, startTime, endTime, courseName]);
+										console.log(this.classData);
+									}
+									this.setState({schedule: this.classData});
+									console.log(this.state.schedule)
+									for(let c of this.state.schedule){
+										let outString = "";
+										outString += "<b>" + c[4] + "</b><br/>" + "Room: " + c[0] + "<br/>" + c[2] + "-" + c[3] + "<br/>" + c[1] + "<br/>";
+										if(schedule[""+c[0]]){
+											schedule[""+c[0]] += outString;
+										}
+										else {
+											schedule[""+c[0]] = outString;
+										}
+									}
+									console.log(schedule);
+
+								})
+								.catch((error) => console.log("error getting user map data: " + error));
+						} else {
+							console.log("skipping map data for non-logged in user");
+						}
 					}
 					console.log(result);
 					return result;
@@ -234,6 +271,10 @@ class LeftDrawer extends Component {
 
 		handleLogout = () => {
 			this.setState({loggedInUser: null});
+		};
+
+		componentDidUpdate = () => {
+
 		};
 
 		render() {
@@ -337,7 +378,7 @@ class LeftDrawer extends Component {
 								<Route exact path="/" component = {Dashboard} />
 								<Route exact path="/schedule" render = {_ => <Schedule userId={this.state.loggedInUser.id}/>} />
 								<Route exact path="/calendar" render = {_ => <Calendar userId={this.state.loggedInUser.id} />} />
-								<Route exact path="/map" render = {_ => <Map userId={this.state.loggedInUser.id} />} />
+								<Route exact path="/map" render = {_ => <Map userId={this.state.loggedInUser.id} classInfo = {schedule} schedule = {this.state.schedule} />} />
 							</div>
 						</div>
 					</BrowserRouter>
