@@ -34,6 +34,7 @@
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
 	color: #0078ad;
+  
 }
 .animateDash:hover{
 	display: inline-block;
@@ -43,7 +44,7 @@
     -webkit-animation: bounce 0.5s infinite linear;
     animation: bounce 0.5s infinite linear;
 	transform: rotate(360deg);
-	
+
 }
 
 .animateClock{
