@@ -36,11 +36,11 @@ namespace BabyHawkHelperServer.Controllers
             DateTime startTime;
             DateTime endTime;
             try {
-                studentId = obj.userId;
+                studentId = obj.studentId;
                 title = obj.title;
-                description = obj.desc;
-                startTime = obj.start;
-                endTime = obj.end;
+                description = obj.description;
+                startTime = obj.startTime;
+                endTime = obj.endTime;
             } catch (Exception ex) {
                 Debug.WriteLine("[EventController::Insert] invalid request payload: "
                     + ex.Message);
@@ -53,8 +53,8 @@ namespace BabyHawkHelperServer.Controllers
                 using (var conn = new SqlConnection(connString)) {
                     conn.Open();
                     var query = "insert into event "
-                        + "(studentId, title, description, startTime, endTime) "
-                        + "values (@studentId, @title, @description, @startTime, @endTime)";
+                        + "(id, studentId, title, description, startTime, endTime) "
+                        + "values (1, @studentId, @title, @description, @startTime, @endTime)";
 
                     using (var cmd = new SqlCommand(query, conn)) {
                         cmd.Parameters.Add("@studentId", SqlDbType.Int).Value = studentId;
@@ -79,7 +79,7 @@ namespace BabyHawkHelperServer.Controllers
             dynamic obj = await Request.Content.ReadAsAsync<JObject>();
             int studentId;
             try {
-                studentId = obj.userId;
+                studentId = obj.studentId;
             } catch (Exception ex) {
                 Debug.WriteLine("[EventController::GetAll] invalid request payload: "
                     + ex.Message);

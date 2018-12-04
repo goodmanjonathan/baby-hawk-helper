@@ -52,41 +52,12 @@ const styles = theme => ({
 });
 
 class App extends Component {
-	constructor(props) {
-		super(props);
 
-		let customEvents = [];
-		if (props.userId !== null) {
-			axios.post("api/event/getall", { userId: props.userId })
-				.then((response) => {
-					console.log(`custom events for user ${props.userId}:`);
-					for (let datum in response) {
-						let id = datum.Id;
-						let title = datum.Title;
-						let description = datum.Description;
-						let startTime = datum.StartTime;
-						let endTime = datum.EndTime;
 
-						console.log(`Event: id=${id}, title=${title}, description=${description}, `
-							+ `startTime=${startTime}, endTime=${endTime}`);
-						customEvents.push({
-							id,
-							title,
-							desc: description,
-							start: startTime,
-							end: endTime,
-						});
-					}
-				})
-				.catch((error) => {
-					console.log("failed to get custom events: " + error);
-				});
-		}
-
-		this.state = {
-			loggedInStudent: props.userId,
+	state = {
+			loggedInStudent: this.props.userId,
 			events: myEvents,
-			customEvents,
+			customEvents: [],
 			open: false,
 			newOpen: false,
 			title: 'placeholder',
@@ -101,7 +72,6 @@ class App extends Component {
 				desc: 'placeholder',
 			}
 		};
-	}
 
 	handlePopUp = (event) => {
 		this.setState({open: true});
@@ -121,8 +91,8 @@ class App extends Component {
 
 	handleCustomClose = () => {
 		this.setState({newOpen: false});
-
-		if (this.state.userId !== null) {
+		console.log(this.state.loggedInStudent);
+		if (this.state.loggedInStudent !== null) {
 			axios.post("api/event/insert", {
 					studentId: this.state.loggedInStudent,
 					title: this.state.title,
@@ -154,6 +124,37 @@ class App extends Component {
 	handleDesc = (e) => {
 		this.setState({desc: e.target.value});
 	};
+
+	componentDidMount = () => {
+		if (this.state.loggedInStudent !== null) {
+			axios.post("api/event/getall", { studentId: this.state.loggedInStudent })
+				.then((response) => {
+					let customEvents = [];
+					console.log(`custom events for user ${this.state.loggedInStudent}:`);
+					for (let datum of response.data) {
+						let id = datum.Id;
+						let title = datum.Title;
+						let description = datum.Description;
+						let startTime = datum.StartTime;
+						let endTime = datum.EndTime;
+
+						console.log(`Event: id=${id}, title=${title}, description=${description}, `
+							+ `startTime=${startTime}, endTime=${endTime}`);
+						customEvents.push({
+							id,
+							title,
+							desc: description,
+							start: new Date(startTime),
+							end: new Date(endTime),
+						});
+					}
+					this.setState({customEvents: customEvents});
+				})
+				.catch((error) => {
+					console.log("failed to get custom events: " + error);
+				});
+			}
+		};
 
 	render() {
 		const { classes } = this.props
