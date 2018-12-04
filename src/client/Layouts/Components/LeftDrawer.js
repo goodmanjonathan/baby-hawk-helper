@@ -159,13 +159,7 @@ class LeftDrawer extends Component {
 				// 3 => Map
 				// 4 => Login
 				selectedIndex: 0,
-<<<<<<< HEAD
 				loggedInUser: {id: -1},
-=======
-				loggedInUser: {
-					id: null,
-				},
->>>>>>> 1ad46f5a... wip
 				drawerOpen: true,
 				loginOpen: true,
 				schedule: [],
@@ -367,6 +361,7 @@ class LeftDrawer extends Component {
 									</Link>
 									<Divider />
 									<div className={classes.toolbar} />
+									<Link to="/">
 									<MenuItem
 											className={classes.menuItem}
 											onClick={event => this.handleListItemClick(event,4)}
@@ -375,6 +370,7 @@ class LeftDrawer extends Component {
 											<SettingsIcon />
 										</ListItemIcon>
 									</MenuItem>
+									</Link>
 								</MenuList>
 							</Drawer>
 

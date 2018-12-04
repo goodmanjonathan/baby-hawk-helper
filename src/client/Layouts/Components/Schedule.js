@@ -101,12 +101,12 @@ class Schedule extends React.Component {
 
         if (this.state.userId === -1) {
             return (
-                <div>
-                    <Typography>
-                        Schedule unavailable<br/>
-                        <a href="">Login</a> to view
-                    </Typography>
-                </div>
+                <Card style={{flexGrow:1 , maxWidth: 400}} elevation={1}>
+								<CardHeader
+									title = "Schedule Unavailable"
+									subheader = "Please login to view"
+									/>
+                </Card>
             );
         } else {
             return (
