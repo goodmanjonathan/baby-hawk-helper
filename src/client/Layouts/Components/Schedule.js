@@ -46,14 +46,17 @@ class Schedule extends React.Component {
     componentDidMount = () => {
         this.mycourses = [];
         console.log(this.state.userId);
-        axios.post("api/schedule/getall", { userId: this.state.userId })
-            .then((response) => {
-                for (let course of response.data) {
-                    this.mycourses.push(course);
-                }
-                this.setState({courses: this.mycourses});
-            })
-            .catch((error) => console.log("error getting schedule: " + error));
+
+        if (this.state.userId !== null) { 
+            axios.post("api/schedule/getall", { userId: this.state.userId })
+                .then((response) => {
+                    for (let course of response.data) {
+                        this.mycourses.push(course);
+                    }
+                    this.setState({courses: this.mycourses});
+                })
+                .catch((error) => console.log("error getting schedule: " + error));
+        }
 
         console.log(this.state.courses);
     };
@@ -93,12 +96,25 @@ class Schedule extends React.Component {
     };
 
     render() {
-        console.log(this.state.courses);
-        return (
-            <List>
-                {this.state.courses.map(this.courseCardFromInfo)}
-            </List>
-        );
+        console.log("courses: " + this.state.courses);
+        console.log("userId: " + this.state.userId);
+
+        if (this.state.userId === null) {
+            return (
+                <div>
+                    <Typography>
+                        Schedule unavailable<br/>
+                        <a href="">Login</a> to view
+                    </Typography>
+                </div>
+            );
+        } else {
+            return (
+                <List>
+                    {this.state.courses.map(this.courseCardFromInfo)}
+                </List>
+            );
+        }
     }
 }
 

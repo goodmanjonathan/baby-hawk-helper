@@ -159,7 +159,13 @@ class LeftDrawer extends Component {
 				// 3 => Map
 				// 4 => Login
 				selectedIndex: 0,
+<<<<<<< HEAD
 				loggedInUser: {id: -1},
+=======
+				loggedInUser: {
+					id: null,
+				},
+>>>>>>> 1ad46f5a... wip
 				drawerOpen: true,
 				loginOpen: true,
 				schedule: [],
@@ -264,7 +270,9 @@ class LeftDrawer extends Component {
 		handleLogin = () => {
 			let uid = document.getElementById("usernameInput").value;
 			let pw = document.getElementById("passwordInput").value;
-			let user = this.login(uid, pw);
+			if (!this.login(uid, pw)) {
+				this.setState({loggedInUser: { id: null }});
+			}
 
 			this.setState({loginOpen: false});
 		};
