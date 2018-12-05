@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
-import List from '@material-ui/core/List';
-import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -205,7 +201,9 @@ class LeftDrawer extends Component {
 						schedule = [];
 						if (this.props.userId !== null) {
 							console.log("getting map data for user " + this.state.loggedInUser.id);
-							axios.post("api/location/getall", { userId: this.state.loggedInUser.id })
+							axios.post("api/location/getall", {
+									userId: this.state.loggedInUser.id
+								})
 								.then((response) => {
 									for (let datum of response.data) {
 										console.log(datum);
@@ -214,25 +212,34 @@ class LeftDrawer extends Component {
 										let startTime = datum.StartTime;
 										let endTime = datum.EndTime;
 										let courseName = datum.CourseName;
-										this.classData.push([roomNumber, professor, startTime, endTime, courseName]);
+										this.classData.push([
+											roomNumber,
+											professor,
+											startTime,
+											endTime,
+											courseName
+										]);
 										console.log(this.classData);
 									}
 									this.setState({schedule: this.classData});
 									console.log(this.state.schedule)
-									for(let c of this.state.schedule){
+									for (let c of this.state.schedule){
 										let outString = "";
-										outString += "<b>" + c[4] + "</b><br/>" + "Room: " + c[0] + "<br/>" + c[2] + "-" + c[3] + "<br/>" + c[1] + "<br/>";
-										if(schedule[""+c[0]]){
-											schedule[""+c[0]] += outString;
-										}
-										else {
-											schedule[""+c[0]] = outString;
+										outString += "<b>" + c[4] + "</b><br/>" + "Room: " + c[0]
+											+ "<br/>" + c[2] + "-" + c[3] + "<br/>" + c[1]
+											+ "<br/>";
+										if (schedule["" + c[0]]) {
+											schedule["" + c[0]] += outString;
+										} else {
+											schedule["" + c[0]] = outString;
 										}
 									}
 									console.log(schedule);
 
 								})
-								.catch((error) => console.log("error getting user map data: " + error));
+								.catch((error) =>
+									console.log("error getting user map data: " + error)
+								);
 						} else {
 							console.log("skipping map data for non-logged in user");
 						}
@@ -321,40 +328,52 @@ class LeftDrawer extends Component {
 									<div className = {classes.toolbar} />
 									<Link to="/">
 										<MenuItem
-												className = {classes.menuItem}
-												onClick={event => this.handleListItemClick(event,0)}
+											className = {classes.menuItem}
+											onClick={event => this.handleListItemClick(event, 0)}
 										>
-											<ListItemIcon className={classes.icon} class = "animateDash">
+											<ListItemIcon
+												className={classes.icon}
+												class = "animateDash"
+											>
 												<DashboardIcon />
 											</ListItemIcon>
 										</MenuItem>
 									</Link>
 									<Link to="/schedule">
 										<MenuItem
-												className= {classes.menuItem}
-												onClick={event => this.handleListItemClick(event,1)}
+											className= {classes.menuItem}
+											onClick={event => this.handleListItemClick(event, 1)}
 										>
-											<ListItemIcon className={classes.icon} class="animateClock">
+											<ListItemIcon
+												className={classes.icon}
+												class="animateClock"
+											>
 												<ScheduleIcon />
 											</ListItemIcon>
 										</MenuItem>
 									</Link>
 									<Link to="/calendar">
 										<MenuItem
-												className={classes.menuItem}
-												onClick={event => this.handleListItemClick(event,2)}
+											className={classes.menuItem}
+											onClick={event => this.handleListItemClick(event, 2)}
 										>
-											<ListItemIcon className={classes.icon} class="animateCal">
+											<ListItemIcon
+												className={classes.icon}
+												class="animateCal"
+											>
 												<TodayIcon />
 											</ListItemIcon>
 										</MenuItem>
 									</Link>
 									<Link to="/map">
 										<MenuItem
-												className={classes.menuItem}
-												onClick={event => this.handleListItemClick(event,3)}
+											className={classes.menuItem}
+											onClick={event => this.handleListItemClick(event, 3)}
 										>
-											<ListItemIcon className={classes.icon} class="animateMap">
+											<ListItemIcon
+												className={classes.icon}
+												class="animateMap"
+											>
 												<MapIcon />
 											</ListItemIcon>
 										</MenuItem>
@@ -363,10 +382,13 @@ class LeftDrawer extends Component {
 									<div className={classes.toolbar} />
 									<Link to="/">
 									<MenuItem
-											className={classes.menuItem}
-											onClick={event => this.handleListItemClick(event,4)}
+										className={classes.menuItem}
+										onClick={event => this.handleListItemClick(event, 4)}
 									>
-										<ListItemIcon className={classes.icon} class="animateSetting">
+										<ListItemIcon
+											className={classes.icon}
+											class="animateSetting"
+										>
 											<SettingsIcon />
 										</ListItemIcon>
 									</MenuItem>
@@ -380,15 +402,32 @@ class LeftDrawer extends Component {
 							>
 								{console.log(this.state.loggedInUser)}
 								<Route exact path="/" component = {Dashboard} />
-								<Route exact path="/schedule" render = {_ => <Schedule userId={this.state.loggedInUser.id}/>} />
-								<Route exact path="/calendar" render = {_ => <Calendar userId={this.state.loggedInUser.id} />} />
-								<Route exact path="/map" render = {_ => <Map userId={this.state.loggedInUser.id} classInfo = {schedule} schedule = {this.state.schedule} />} />
+								<Route
+									exact
+									path="/schedule"
+									render = {_ => <Schedule userId={this.state.loggedInUser.id}/>}
+								/>
+								<Route
+									exact
+									path="/calendar"
+									render = {_ => <Calendar userId={this.state.loggedInUser.id}/>}
+								/>
+								<Route
+									exact
+									path="/map"
+									render = {_ =>
+										<Map
+											userId={this.state.loggedInUser.id}
+											classInfo = {schedule}
+											schedule = {this.state.schedule}
+										/>
+									}
+								/>
 							</div>
 						</div>
 					</BrowserRouter>
 				);
 		}
 }
-
 
 export default withStyles(styles)(LeftDrawer);
