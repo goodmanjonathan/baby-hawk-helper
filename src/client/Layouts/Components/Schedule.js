@@ -62,7 +62,7 @@ class Schedule extends React.Component {
     };
 
     courseCardFromInfo = (courseInfo) => {
-        const sectionNumber = courseInfo.SectionNumber;
+        const { Department, CourseNumber, SectionNumber } = courseInfo;
         const days = courseInfo.Days.join("");
 
         return (
@@ -75,7 +75,7 @@ class Schedule extends React.Component {
                         <ExpansionPanel>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={styles.body}>
-                                    {courseInfo.Department} {courseInfo.CourseNumber}.{sectionNumber}<br/>
+                                    {Department} {CourseNumber}.{SectionNumber}<br/>
                                     {courseInfo.Professor}<br/>
                                     {days} {courseInfo.StartTime}-{courseInfo.EndTime}<br/>
                                     {courseInfo.Building} {courseInfo.RoomNumber}
@@ -102,10 +102,10 @@ class Schedule extends React.Component {
         if (this.state.userId === -1) {
             return (
                 <Card style={{flexGrow:1 , maxWidth: 400}} elevation={1}>
-								<CardHeader
-									title = "Schedule Unavailable"
-									subheader = "Please login to view"
-									/>
+                    <CardHeader
+                        title = "Schedule Unavailable"
+                        subheader = "Please login to view"
+                    />
                 </Card>
             );
         } else {

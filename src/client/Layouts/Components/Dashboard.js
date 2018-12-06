@@ -40,23 +40,39 @@ function Dashboard(props) {
 					<Paper>
 						<div style = {{textAlign: "center", padding: 4}}>
 							<a href="http://www.instagram.com/uhclearlake">
-								<Button className={classes.Button} >
-									<img src={require('./images/iconi.png')} width = "40" height = "40"/>
+								<Button className={classes.Button}>
+									<img
+										src = {require('./images/iconi.png')}
+										width = "40"
+										height = "40"
+									/>
 								</Button>
 							</a>
 							<a href="https://twitter.com/UHClearLake">
 								<Button className={classes.Button}>
-									<img src={require('./images/icont.png')} width="40" height="40" />
+									<img
+										src={require('./images/icont.png')}
+										width="40"
+										height="40"
+									/>
 								</Button>
 							</a>
 							<a href="https://www.facebook.com/UHClearLake/">
 								<Button className={classes.Button}>
-									<img src={require('./images/iconf.png')} width="40" height="40" />
+									<img
+										src={require('./images/iconf.png')}
+										width="40"
+										height="40"
+									/>
 								</Button>
 							</a>
-							<a href="https://www.youtube.com/user/uhclearlake" >
+							<a href="https://www.youtube.com/user/uhclearlake">
 								<Button className={classes.Button}>
-									<img src={require('./images/icony.png')} width="40" height="40" />
+									<img
+										src={require('./images/icony.png')}
+										width="40"
+										height="40"
+									/>
 								</Button>
 							</a>
 						</div>

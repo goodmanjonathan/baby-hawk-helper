@@ -64,12 +64,24 @@ class App extends Component {
 			layer.bindPopup(this.props.classInfo[feature.properties.Room]);
 		} else if (feature.properties.Faculty) {
 			layer.bindPopup(
-				"<b>" + feature.properties.Type + "</b><br/>Room: " + feature.properties.Room
-					+ "<br/>" + feature.properties.Faculty + "<br/>" + feature.properties.Email
+				"<b>"
+				+ feature.properties.Type
+				+ "</b><br/>"
+				+ "Room: "
+				+ feature.properties.Room
+				+ "<br/>"
+				+ feature.properties.Faculty
+				+ "<br/>"
+				+ feature.properties.Email
 			);
 		} else if (feature.properties.Room == '205') {
 			layer.bindPopup(
-				"<b>Delta Open Lab " + feature.properties.Room + "</b><br/>Monday-Thursday: 8 a.m. - 12 a.m.<br/>Friday-Saturday: 8 a.m. - 5 p.m.<br/>Sunday: 1 p.m. - 5 p.m."
+				"<b>Delta Open Lab "
+				+ feature.properties.Room
+				+ "</b><br/>"
+				+ "Monday-Thursday: 8 a.m. - 12 a.m.<br/>"
+				+ "Friday-Saturday: 8 a.m. - 5 p.m.<br/>"
+				+ "Sunday: 1 p.m. - 5 p.m."
 			);
 		} else {
 			layer.bindPopup(
