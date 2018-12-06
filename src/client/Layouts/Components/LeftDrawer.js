@@ -34,7 +34,7 @@ import Map from "./Map";
 
 const pages = ["Dashboard", "Schedule", "Calendar", "Map"];
 const drawerWidth = 60;
-let schedule = {};
+let schedule = [];
 
 const styles = theme => ({
 	root: {
@@ -189,7 +189,8 @@ class LeftDrawer extends Component {
 						}
 						console.log("login failed: " + reason);
 
-						result = null;
+						this.setState({loggedInUser: { id: -1 }, schedule: []});
+                        schedule = [];
 					} else if (response.data.Valid === true) {
 						result = {
 							id: uid,
@@ -198,8 +199,8 @@ class LeftDrawer extends Component {
 						};
 						this.setState({loggedInUser: result});
 						this.classData = [];
-						schedule = [];
-						if (this.props.userId !== null) {
+						schedule = []; 
+						if (this.props.userId !== -1) {
 							console.log("getting map data for user " + this.state.loggedInUser.id);
 							axios.post("api/location/getall", {
 									userId: this.state.loggedInUser.id
@@ -219,7 +220,7 @@ class LeftDrawer extends Component {
 											endTime,
 											courseName
 										]);
-										console.log(this.classData);
+										console.log("class data: " + this.classData);
 									}
 									this.setState({schedule: this.classData});
 									console.log(this.state.schedule)
@@ -234,7 +235,7 @@ class LeftDrawer extends Component {
 											schedule["" + c[0]] = outString;
 										}
 									}
-									console.log(schedule);
+									console.log("schedule: " + schedule);
 
 								})
 								.catch((error) =>
@@ -244,8 +245,6 @@ class LeftDrawer extends Component {
 							console.log("skipping map data for non-logged in user");
 						}
 					}
-					console.log(result);
-					return result;
 				})
 				.catch((error) => {
 					console.log(error);
@@ -271,15 +270,13 @@ class LeftDrawer extends Component {
 		handleLogin = () => {
 			let uid = document.getElementById("usernameInput").value;
 			let pw = document.getElementById("passwordInput").value;
-			if (!this.login(uid, pw)) {
-				this.setState({loggedInUser: { id: null }});
-			}
+			this.login(uid, pw);
 
 			this.setState({loginOpen: false});
 		};
 
 		handleLogout = () => {
-			this.setState({loggedInUser: {id: -1}});
+			this.setState({loggedInUser: {id: -1}, schedule: []});
 		};
 
 		componentDidUpdate = () => {
@@ -297,7 +294,7 @@ class LeftDrawer extends Component {
 							>
 								{
 
-									this.state.loggedInUser.id != -1
+									this.state.loggedInUser.id !== -1
 										? LogoutPrompt(this.state.loggedInUser, this.handleLogout)
 										: LoginPrompt(this.handleLogin)
 								}
