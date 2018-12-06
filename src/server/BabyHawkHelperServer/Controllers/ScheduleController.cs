@@ -42,11 +42,11 @@ namespace BabyHawkHelperServer.Controllers
             try {
                 using (var conn = new SqlConnection(connString)) {
                     conn.Open();
-                    var query = "select course.id, course.name, course.department, course.courseNumber, "
-                        + "course.courseSection, courseTimes.weekday, courseTimes.startTime, "
-                        + "courseTimes.endTime, professor.name, professor.phone, professor.email, "
-                        + "officeHours.startTime, officeHours.endTime, location.buildingName, "
-                        + "location.roomNumber "
+                    var query = "select course.id, course.name, course.department, "
+                        + "course.courseNumber, course.courseSection, courseTimes.weekday, "
+                        + "courseTimes.startTime, courseTimes.endTime, professor.name, "
+                        + "professor.phone, professor.email, officeHours.startTime, "
+                        + "officeHours.endTime, location.buildingName, location.roomNumber "
                         + "from student, enroll, course, courseTimes, professor, officeHours, "
                         + "location "
                         + "where student.id = enroll.studentId and "
@@ -79,8 +79,12 @@ namespace BabyHawkHelperServer.Controllers
                                             newDays[newDays.Length - 1] = weekday;
                                             course.Days = newDays;
                                         }
-                                        if (!Array.Exists(course.OfficeHours, e => e == officeHours_)) {
-                                            var newHours = new OfficeHours[1 + course.OfficeHours.Length];
+                                        if (!Array.Exists(
+                                            course.OfficeHours,
+                                            e => e == officeHours_)
+                                        ) {
+                                            var newHours =
+                                                new OfficeHours[1 + course.OfficeHours.Length];
                                             for (int i = 0; i < course.OfficeHours.Length; i++)
                                                 newHours[i] = course.OfficeHours[i];
                                             newHours[newHours.Length - 1] = officeHours_;
@@ -104,7 +108,10 @@ namespace BabyHawkHelperServer.Controllers
                                 var professorPhone = reader.GetString(9);
                                 var professorEmail = reader.GetString(10);
                                 var officeHours = new OfficeHours[] {
-                                    new OfficeHours(reader.GetTimeSpan(11), reader.GetTimeSpan(12)),
+                                    new OfficeHours(
+                                        reader.GetTimeSpan(11),
+                                        reader.GetTimeSpan(12)
+                                    ),
                                 };
                                 var buildingName = reader.GetString(13);
                                 var roomNumber = reader.GetString(14);
@@ -125,7 +132,8 @@ namespace BabyHawkHelperServer.Controllers
                                     RoomNumber = roomNumber,
                                 });
                             }
-                            Debug.WriteLine("[ScheduleController::GetAll] returning info for student "
+                            Debug.WriteLine("[ScheduleController::GetAll] "
+                                + "returning info for student "
                                 + id.ToString() + ": " + courses.ToString());
                             return courses.ToArray();
                         }

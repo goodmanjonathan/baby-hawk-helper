@@ -70,7 +70,8 @@ namespace BabyHawkHelperServer.Controllers {
                                     CourseName = courseName,
                                 });
                             }
-                            Debug.WriteLine("[LocationController::GetAll] returning info for student "
+                            Debug.WriteLine("[LocationController::GetAll] "
+                                + "returning info for student "
                                 + id.ToString() + ": " + locations.ToString());
                             return locations.ToArray();
                         }

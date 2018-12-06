@@ -20,7 +20,10 @@ namespace BabyHawkHelperServer
             if (Context.Request.HttpMethod.Equals("OPTIONS"))
             {
                 Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-                Response.AddHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                Response.AddHeader(
+                    "Access-Control-Allow-Headers",
+                    "Origin, X-Requested-With, Content-Type, Accept"
+                );
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 Context.ApplicationInstance.CompleteRequest();
             }

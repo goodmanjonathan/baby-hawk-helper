@@ -60,7 +60,8 @@ namespace BabyHawkHelperServer.Controllers {
                     }
                 }
             } catch (SqlException ex) {
-                Debug.WriteLine("[StudentController::Insert] failed to access database: " + ex.Message);
+                Debug.WriteLine("[StudentController::Insert] failed to access database: "
+                    + ex.Message);
                 throw ex;
             }
         }
@@ -102,7 +103,8 @@ namespace BabyHawkHelperServer.Controllers {
                             var passwordMatch = BCrypt.Net.BCrypt.Verify(password, hash);
 
                             if (!foundId | !passwordMatch) {
-                                Debug.WriteLine("[StudentController::Get] authentication failed for student: "
+                                Debug.WriteLine("[StudentController::Get] "
+                                    + "authentication failed for student: "
                                     + id.ToString() + ", password: " + password);
                                 return Ok(new Student {
                                     Valid = false,
@@ -115,7 +117,8 @@ namespace BabyHawkHelperServer.Controllers {
                                     FirstName = reader.GetString(0),
                                     LastName = reader.GetString(2),
                                 };
-                                Debug.WriteLine("[StudentController::Get] returning info for student "
+                                Debug.WriteLine("[StudentController::Get] "
+                                    + "returning info for student "
                                     + id.ToString() + ": " + result.ToString());
                                 return Ok(result);
                             }
@@ -123,7 +126,8 @@ namespace BabyHawkHelperServer.Controllers {
                     }
                 }
             } catch (Exception ex) {
-                Debug.WriteLine("[StudentController::Get] failed to access database: " + ex.Message);
+                Debug.WriteLine("[StudentController::Get] failed to access database: "
+                    + ex.Message);
                 return Ok(new Student {
                     Valid = false,
                     Reason = 2,
