@@ -115,6 +115,7 @@ function LoginPrompt(handleLogin) {
 					margin="dense"
 					id="passwordInput"
 					label="Password"
+                    type="password"
 					fullWidth
 				/>
 			</DialogContent>
