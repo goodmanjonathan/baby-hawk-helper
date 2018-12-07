@@ -46,7 +46,8 @@ namespace BabyHawkHelperServer.Controllers
                         + "course.courseNumber, course.courseSection, courseTimes.weekday, "
                         + "courseTimes.startTime, courseTimes.endTime, professor.name, "
                         + "professor.phone, professor.email, officeHours.startTime, "
-                        + "officeHours.endTime, location.buildingName, location.roomNumber "
+                        + "officeHours.endTime, officeHours.weekday, location.buildingName, "
+                        + "location.roomNumber "
                         + "from student, enroll, course, courseTimes, professor, officeHours, "
                         + "location "
                         + "where student.id = enroll.studentId and "
@@ -64,35 +65,36 @@ namespace BabyHawkHelperServer.Controllers
 
                             getCourse:  while (reader.Read()) {
                                 var id_ = reader.GetInt32(0);
-                                foreach (var course in courses) {
-                                    if (course.Id == id_) {
-                                        var weekday = reader.GetString(5);
-                                        var officeHours_ = new OfficeHours(
-                                            reader.GetTimeSpan(11),
-                                            reader.GetTimeSpan(12)
-                                        );
+                                var existing = courses.Find((c) => c.Id == id_);
 
-                                        if (!Array.Exists(course.Days, e => e == weekday)) {
-                                            var newDays = new string[1 + course.Days.Length];
-                                            for (int i = 0; i < course.Days.Length; i++)
-                                                newDays[i] = course.Days[i];
-                                            newDays[newDays.Length - 1] = weekday;
-                                            course.Days = newDays;
-                                        }
-                                        if (!Array.Exists(
-                                            course.OfficeHours,
-                                            e => e == officeHours_)
-                                        ) {
-                                            var newHours =
-                                                new OfficeHours[1 + course.OfficeHours.Length];
-                                            for (int i = 0; i < course.OfficeHours.Length; i++)
-                                                newHours[i] = course.OfficeHours[i];
-                                            newHours[newHours.Length - 1] = officeHours_;
-                                            course.OfficeHours = newHours;
-                                        }
+                                if (existing != null) {
+                                    var weekday = reader.GetString(5);
+                                    var officeHours_ = new OfficeHours(
+                                        reader.GetTimeSpan(11),
+                                        reader.GetTimeSpan(12),
+                                        reader.GetString(13)
+                                    );
 
-                                        goto getCourse;
-                                    }                                        
+                                    if (!Array.Exists(existing.Days, e => e == weekday)) {
+                                        var newDays = new string[1 + existing.Days.Length];
+                                        for (int i = 0; i < existing.Days.Length; i++)
+                                            newDays[i] = existing.Days[i];
+                                        newDays[newDays.Length - 1] = weekday;
+                                        existing.Days = newDays;
+                                    }
+                                    if (!Array.Exists(
+                                        existing.OfficeHours,
+                                        e => e == officeHours_)
+                                    ) {
+                                        var newHours =
+                                            new OfficeHours[1 + existing.OfficeHours.Length];
+                                        for (int i = 0; i < existing.OfficeHours.Length; i++)
+                                            newHours[i] = existing.OfficeHours[i];
+                                        newHours[newHours.Length - 1] = officeHours_;
+                                        existing.OfficeHours = newHours;
+                                    }
+
+                                    goto getCourse;
                                 }
 
                                 var courseName = reader.GetString(1);
@@ -110,11 +112,12 @@ namespace BabyHawkHelperServer.Controllers
                                 var officeHours = new OfficeHours[] {
                                     new OfficeHours(
                                         reader.GetTimeSpan(11),
-                                        reader.GetTimeSpan(12)
+                                        reader.GetTimeSpan(12),
+                                        reader.GetString(13)
                                     ),
                                 };
-                                var buildingName = reader.GetString(13);
-                                var roomNumber = reader.GetString(14);
+                                var buildingName = reader.GetString(14);
+                                var roomNumber = reader.GetString(15);
                                 courses.Add(new Course {
                                     Id = id_,
                                     CourseName = courseName,

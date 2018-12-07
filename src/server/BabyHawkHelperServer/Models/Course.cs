@@ -2,17 +2,33 @@
 using System.Collections.Generic;
 
 namespace BabyHawkHelperServer.Models {
-    public class OfficeHours: IEquatable<OfficeHours> {
+    public class OfficeHours {
         public TimeSpan StartTime;
         public TimeSpan EndTime;
+        public string Weekday;
 
-        public OfficeHours(TimeSpan start, TimeSpan end) {
+        public OfficeHours(TimeSpan start, TimeSpan end, string weekday) {
             StartTime = start;
             EndTime = end;
+            Weekday = weekday;
         }
 
-        bool IEquatable<OfficeHours>.Equals(OfficeHours other) {
-            return StartTime == other.StartTime && EndTime == other.EndTime;
+        public static bool operator==(OfficeHours lhs, OfficeHours rhs) {
+            return lhs.StartTime == rhs.StartTime
+                && lhs.EndTime == rhs.EndTime
+                && lhs.Weekday == rhs.Weekday;
+        }
+
+        public static bool operator!=(OfficeHours lhs, OfficeHours rhs) {
+            return !(lhs == rhs);
+        }
+
+        public override bool Equals(object other) {
+            return this == (OfficeHours)other;
+        }
+
+        public override int GetHashCode() {
+            return base.GetHashCode();
         }
     }
 
