@@ -43,6 +43,14 @@ class Schedule extends React.Component {
         };
     }
 
+	convertTime = (t) => {
+		return t.toLocaleString("en-US", {
+				hour: "numeric",
+				minute: "numeric",
+				hour12: false,
+			});
+	};
+	
     componentDidMount = () => {
         this.mycourses = [];
         console.log(this.state.userId);
@@ -50,7 +58,7 @@ class Schedule extends React.Component {
         if (this.state.userId !== null) {
             axios.post("api/schedule/getall", { userId: this.state.userId })
                 .then((response) => {
-                    for (let course of response.data) {
+                    for (let course of response.data) {				
                         this.mycourses.push(course);
                     }
                     this.setState({courses: this.mycourses});
@@ -60,11 +68,22 @@ class Schedule extends React.Component {
 
         console.log(this.state.courses);
     };
+	
+	officeHours = (o) => {
+		const { Weekday, StartTime, EndTime } = o;
+		return (
+			<ListItem>
+				<Typography>
+				{Weekday} {StartTime}-{EndTime}
+				</Typography>
+			</ListItem>
+		);
+	};
 
     courseCardFromInfo = (courseInfo) => {
-        const { Department, CourseNumber, SectionNumber } = courseInfo;
+        const { Department, CourseNumber, SectionNumber, StartTime, EndTime } = courseInfo;
         const days = courseInfo.Days.join("");
-
+		
         return (
             <ListItem>
                 <Card style={{flexGrow:1 , maxWidth: 400}} elevation={1}>
@@ -76,16 +95,25 @@ class Schedule extends React.Component {
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={styles.body}>
                                     {Department} {CourseNumber}.{SectionNumber}<br/>
-                                    {courseInfo.Professor}<br/>
-                                    {days} {courseInfo.StartTime}-{courseInfo.EndTime}<br/>
+                                    {days} {this.convertTime(StartTime)}
+										-{this.convertTime(EndTime)}<br/>
                                     {courseInfo.Building} {courseInfo.RoomNumber}
                                 </Typography>
                             </ExpansionPanelSummary>
 
                             <ExpansionPanelDetails>
                                 <Typography>
+									{courseInfo.Professor}<br/>
                                     {courseInfo.Phone}<br/>
-                                    {courseInfo.Email}
+                                    {courseInfo.Email}<br/>
+									
+									<List>
+										{
+											courseInfo
+												.OfficeHours
+												.map(this.officeHours)
+										}
+									</List>
                                 </Typography>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
